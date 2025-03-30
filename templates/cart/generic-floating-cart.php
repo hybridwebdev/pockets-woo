@@ -1,4 +1,5 @@
 <?php
+    \pockets::inject_data('aaaaaaa', ['a']);
     $data = $this->read_resource([
         'total'
     ]);

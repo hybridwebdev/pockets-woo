@@ -1,25 +1,10 @@
 <?php
 namespace pockets_woo\crud\models\woo\product;
-
-trait projectRead {
-
-    function isDiscounted(){
-
-        if( $this->resource->is_type('variation') ) {
-            return (int)get_post_meta( $this->resource->get_parent_id(), 'isDiscounted', true );
-        }
-
-        return (int)get_post_meta( $this->resource->get_id(), 'isDiscounted', true );
-
-    }
-
-}
+ 
 
 class read extends \pockets\crud\resource_walker {
     
     use \pockets\crud\render;
-
-    use projectRead; 
 
     function image( array $read ) : \Wp_Error | array {
         //"https://place-hold.it/80x80"
@@ -66,19 +51,6 @@ class read extends \pockets\crud\resource_walker {
             'variation' => [],
             'cart_item_data' => []
         ];
-
-    }
- 
-
-    function meta( array $args ) : array | \WP_Error {
-        
-        if( !is_array( $args ) ) return \pockets::error("Denied");
-
-        return \pockets\crud\reducers\whitelist_reducer::walk(
-            array: $args, 
-            callback: fn( $value, $iterator ) => get_post_meta( $this->resource->get_id(), $iterator->key, true ),
-            whitelist: meta_key_whitelist::getKeys()
-        );
 
     }
 
