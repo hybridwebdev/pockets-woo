@@ -6,6 +6,7 @@ class model extends \pockets\crud\model {
     static string $model_name = 'woo/cart';
     public string $update_resource = __NAMESPACE__.'\update';
     public string $read_resource = __NAMESPACE__.'\read';
+    public string $get_resource = __NAMESPACE__.'\get';
  
     function create( array $read, array $update ) : bool | \WP_Error {
         return \pockets::error("Denied");
@@ -30,19 +31,5 @@ class model extends \pockets\crud\model {
     function delete( array $delete ) : bool | \WP_Error {
         return \pockets::error("Denied");
     }
-
-    // static function init( $resource = null ){
-        
-    //     if ( is_null( WC()->cart ) ) {
-    //         wc_load_cart();
-    //         WC()->cart->get_cart_from_session();
-    //     }
-
-    //     $instance = new static;
-    //     $instance->setResource( WC()->cart );
-    //     return $instance;
-        
-    // }
-
 
 }

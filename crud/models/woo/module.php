@@ -15,7 +15,7 @@ class module {
         order\model::register();
         order_item\model::register();
         data\model::register();
-        
+
     }
 
 }
