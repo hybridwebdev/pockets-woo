@@ -3,8 +3,10 @@ namespace pockets_woo\crud\models\woo\cart;
  
 class get extends \pockets\crud\get_resource {
     
+    public string $default_array_by = 'null';
+
     function __getCart(){
-        
+
         if ( is_null( WC()->cart ) ) {
             wc_load_cart();
             WC()->cart->get_cart_from_session();
@@ -29,5 +31,9 @@ class get extends \pockets\crud\get_resource {
     function request_using_null() {
         return $this->__getCart();
     }
- 
+    
+    function array_by_null(){
+        return $this->__getCart();  
+    }
+
 }

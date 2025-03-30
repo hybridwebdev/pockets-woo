@@ -3,6 +3,8 @@ namespace pockets_woo\crud\models\woo\cart;
 
 class read extends \pockets\crud\resource_walker {
 
+    use \pockets\crud\render;
+    
     function items( array $read ) : array {
         
         $values = array_map(
@@ -23,7 +25,6 @@ class read extends \pockets\crud\resource_walker {
     }
 
     function tax(){
-        return 100.0;
         return $this->resource->get_taxes();
     }
 
