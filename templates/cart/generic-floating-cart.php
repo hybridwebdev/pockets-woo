@@ -1,7 +1,11 @@
 <?php
-    \pockets::inject_data('aaaaaaa', ['a']);
     $data = $this->read_resource([
-        'total'
+        'total',
+        'items' => [
+            'render' => [
+                'template' => 'cart/floating-cart-item'
+            ]
+        ]
     ]);
 ?>
 <div>
@@ -10,4 +14,11 @@
         Update
     </button>
     <?= $data['total'] ?>
+    <?php
+
+        array_map( 
+            array: $data['items'],
+            callback: fn( $item ) => printf( $item['render'])
+        );
+    ?>
 </div>

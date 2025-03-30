@@ -24,9 +24,10 @@ namespace pockets {
 
             $key = uniqid('wooCart');
 
+            $results = \pockets::crud('woo/cart')::init()->read( $read );
             \pockets::inject_data( $key , [
                 'read' => $read,
-                'results' => \pockets::crud('woo/cart')::init()->read( $read )
+                'results' => $results
             ] );
 
             printf(
@@ -36,14 +37,12 @@ namespace pockets {
                         v-bind='%s'
                         #default='cart'
                     >
-                        <render-html 
-                            v-bind='cart.results'
-                            :el='false'
-                        ></render-html>
+                        %s
                     </pockets-woo-cart>
                 </pockets-app>
                 T,
-                sprintf( '$pockets.data.%s', $key )
+                sprintf( '$pockets.data.%s', $key ),
+                $results['innerHTML']
             );
 
         }
