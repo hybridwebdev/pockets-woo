@@ -6,7 +6,7 @@ namespace pockets_woo\plugin;
 */
 
 #[\AllowDynamicProperties]
-class module extends \pockets_forms\base {
+class module extends \pockets\base {
 
     use \pockets\traits\init;
 
@@ -15,6 +15,7 @@ class module extends \pockets_forms\base {
         parent::__construct();
 
         api\module::init();
+        \pockets_woo\crud\models\woo\module::init();
 
     }
     
