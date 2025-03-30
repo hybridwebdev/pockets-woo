@@ -1,5 +1,5 @@
 <?php
-echo "Hello world";
+
 $fallback = "https://placehold.co/100x100/efefef/000";
 
 $data = $this->read_resource( [
@@ -12,20 +12,13 @@ $data = $this->read_resource( [
         'title',
         'product_type',
         'sku',
-        // 'image' => [
-        //     'url' => [
-        //         'size' => 'medium',
-        //         'fallback' => $fallback
-        //     ]
-        // ],
+         
     ],
     'subtotal',
-    'resource' // remove this
+
 ] );
 
-\pockets::dump( $data ); 
-
-return;
+$data['image'] = \pockets::error("");
 
 if( $data['product_type'] == 'variation') {
     
@@ -47,7 +40,7 @@ if( is_wp_error( $data['image'] ) ) {
 }
 
 ?>
-<rinnai-app class='d-flex gap-2 align-items-start border-bottom border-1 border-grey-400 pb-4'>
+<div class='d-flex gap-2 align-items-start border-bottom border-1 border-grey-400 pb-4'>
 
     <div class='width: 100px'>
         <a href='<?= $data['link'] ?>'>
@@ -62,7 +55,7 @@ if( is_wp_error( $data['image'] ) ) {
             </a>
             <i 
                 class='fa fa-trash-alt product-remove ms-auto p-2 pe-0' role='button'
-                @click='rinnai.cart.removeItem( "<?= $data['key'] ?>" ).then( e => rinnai.toast.success("Item removed") )'
+                @click='$pockets.woo.cart.removeItem( "<?= $data['key'] ?>" ).then( e => $pockets.toast.success("Item removed") )'
             ></i>
         </div>
 
@@ -72,21 +65,18 @@ if( is_wp_error( $data['image'] ) ) {
 
         <div class='grid-info'>
             <span>Qty:</span>
-            <fancy-input
+            <input
+                type='number'
                 value='<?= $data['quantity']?>' 
-                @update:value='quantity => rinnai.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => rinnai.toast.success("Quantity updated") )'
+                @input='e => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", e.target.value ).then( e => $pockets.toast.success("Quantity updated") )'
             >
-            </fancy-input>
-        </div>
-
-        <div class='grid-info'>
-            <span>Output:</span>
-            <span>14kW</span>
+            </input>
         </div>
 
         <p class="product-price">
-            {{ rinnai.formatCurrency( <?= $data['subtotal'] ?> ) }}
+            
         </p>
+        
     </div>
 
-</rinnai-app>
+</div>

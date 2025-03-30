@@ -22,27 +22,28 @@ namespace pockets {
                 ],
             ];
 
-            $key = uniqid('wooCart');
-
-            $results = \pockets::crud('woo/cart')::init()->read( $read );
-            \pockets::inject_data( $key , [
-                'read' => $read,
-                'results' => $results
-            ] );
+            \pockets::crudCache( 
+                model: 'woo/cart', 
+                action: 'read', 
+                init: null, 
+                input: $read,
+            );
 
             printf(
                 <<<'T'
                 <pockets-app>
                     <pockets-woo-cart
-                        v-bind='%s'
+                        :read='%s'
                         #default='cart'
                     >
-                        %s
+                        <render-html 
+                            v-bind='cart.results'
+                            :el='false'
+                        ></render-html>
                     </pockets-woo-cart>
                 </pockets-app>
                 T,
-                sprintf( '$pockets.data.%s', $key ),
-                $results['innerHTML']
+                json_encode( $read ),
             );
 
         }

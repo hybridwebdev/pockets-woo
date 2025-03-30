@@ -13,9 +13,8 @@
     <button @click='$pockets.woo.cart.hash++'>
         Update
     </button>
-    <?= $data['total'] ?>
+    $<?= $data['total'] ?>
     <?php
-
         array_map( 
             array: $data['items'],
             callback: fn( $item ) => printf( $item['render'])
