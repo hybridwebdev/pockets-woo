@@ -8,7 +8,7 @@
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'total',
     'items' => [
-        'render' => [
+        'render:innerHTML' => [
             'template' => "cart/floating-cart-item"
         ]
     ]
@@ -18,12 +18,18 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
 
 <pockets-woo-cart
     :query='<?= json_encode( $model->get( 'query' ) ) ?>'
-    #default='{ results }'
+    #default='{ results, api }'
 >
 
-    {{ results.total }}
+    <div class='grid columns-1 gap-2 loading-container' :loading='$pockets.woo.cart.busy'>
+        
+        Cart Total ${{ results.total }}
 
-    <render-html v-for='item in results.items' :innerHTML='item.render'>
-    </render-html>
+        <div>
+            <render-html v-for='item in results.items' v-bind='item'>
+            </render-html>
+        </div>
+
+    </div>
 
 </pockets-woo-cart>

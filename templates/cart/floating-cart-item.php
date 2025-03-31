@@ -7,6 +7,11 @@ $data = $this->read_resource( [
     'quantity',
     'product:<=' => [
         'link',
+        'image' => [
+            'url' => [
+                'fallback' => $fallback
+            ]
+        ],
     ],
     'item_info:<=' => [
         'title',
@@ -17,8 +22,6 @@ $data = $this->read_resource( [
     'subtotal',
 
 ] );
-
-$data['image'] = \pockets::error("");
 
 if( $data['product_type'] == 'variation') {
     
@@ -51,8 +54,8 @@ if( is_wp_error( $data['image'] ) ) {
     <div class='floating-cart-item-contents'>
     
         <div class='d-flex align-items-center'>
-            <a href='<?= $data['link'] ?>' class="product-title">
-                <span class='text-black'><?= $data['title'] ?></span>
+            <a href='<?= $data['link'] ?>'>
+                <span class='text-white'><?= $data['title'] ?></span>
             </a>
             <i 
                 class='fa fa-trash-alt product-remove ms-auto p-2 pe-0' role='button'
@@ -66,12 +69,11 @@ if( is_wp_error( $data['image'] ) ) {
 
         <div class='grid-info'>
             <span>Qty:</span>
-            <input
-                type='number'
+            <pockets-fancy-input
                 value='<?= $data['quantity']?>' 
-                @input='e => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", e.target.value ).then( e => $pockets.toast.success("Quantity updated") )'
+                @update:value='quantity => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => $pockets.toast.success("Quantity updated") )'
             >
-            </input>
+            </pockets-fancy-input>
         </div>
 
         <p class="product-price">

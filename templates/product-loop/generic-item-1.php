@@ -1,13 +1,9 @@
 <?php 
+
 /**
 * Template Name: Generic Product Item 1
 * Template Type: post
 */
-
-$randomString = function (): string {
-    $length = rand(10, 40); // Random length between 1 and 20
-    return substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz', ceil($length / 26))), 0, $length);
-};
 
 $data = $this->read_resource( [
     "ID",
@@ -37,21 +33,18 @@ $renderPrice = fn() => sprintf(
 ?>
 <div class='grid-card-4 bg-white p-4 gap-1 product'>
 
-    <div class='text-uppercase fs-14 lh-22 fw-5'>
-        SKU: <?= $data['sku'] ?>
-    </div>
-
     <div class='d-flex align-items-center justify-content-center'>
         <a href="<?= $data['link'] ?>">
             <img src='<?= $data['image']['url']?>'>
         </a>
     </div>
 
-    <p class="product-title">   
-        <a href="<?= $data['link'] ?>">
-            <?= $data['title'] ?>
-        </a>
-    </p>
+    <a 
+        href="<?= $data['link'] ?>" 
+        class="text-black text-decoration-none fs-24 fw-6"
+    >
+        <?= $data['title'] ?>
+    </a>
 
     <pockets-local-state 
         :item='<?= json_encode( [
@@ -72,7 +65,10 @@ $renderPrice = fn() => sprintf(
                 if( $data['product_type'] == 'variable' ) {
             ?>
                 <div>
-                    <a href="<?php echo esc_url($data['link']); ?>" class='fs-14 btn btn-outline-primary d-block text-center text-uppercase view-options'>View options</a>
+                    <a 
+                        href="<?php echo esc_url($data['link']); ?>" 
+                        class='fs-14 btn btn-outline-primary d-block text-center text-uppercase view-options text-black'
+                    >View options</a>
                 </div>
             <?php
                 }
@@ -86,12 +82,13 @@ $renderPrice = fn() => sprintf(
                     <pockets-fancy-input
                         :debounce='0'
                         v-model:value='state.item.quantity'
+                        style='max-width: 160px'
                     >
                     </pockets-fancy-input>    
                     
                     <button
                         type="button"
-                        class='btn btn-primary text-uppercase fs-14 add-to-cart'
+                        class='btn btn-outline-primary-dk text-uppercase fs-14 add-to-cart rounded-0 flex-grow-1'
                         @click='
                             state.busy = true;
                             $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
