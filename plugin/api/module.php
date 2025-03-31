@@ -13,23 +13,15 @@ namespace pockets {
     class woo {
 
         use \pockets\traits\init;
-
+    
         static function renderCart(){
-            
-            $query = [
-                'model' => 'woo/cart',
-                'action' => "read",
-                'init' => null,
-                'input' => [
-                    'render:innerHTML' => [
-                        'template' => "cart/generic-floating-cart"
-                    ],
+
+            $model = \pockets::crud( 'woo/cart' )::initOnce()->read( [
+                'render:innerHTML' => [
+                    'template' => "cart/generic-floating-cart"
                 ],
-                //'output' => null
-            ];
-
-            \pockets::crudCache( $query );
-
+            ] );
+            
             printf(
                 <<<'T'
                 <pockets-app>
@@ -48,7 +40,7 @@ namespace pockets {
 
                 </pockets-app>
                 T,
-                json_encode( $query ),
+                json_encode( $model->get('query') ),
             );
 
         }
