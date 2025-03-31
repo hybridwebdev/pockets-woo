@@ -16,34 +16,39 @@ namespace pockets {
 
         static function renderCart(){
             
-            $read = [
-                'render:innerHTML' => [
-                    'template' => "cart/generic-floating-cart"
+            $query = [
+                'model' => 'woo/cart',
+                'action' => "read",
+                'init' => null,
+                'input' => [
+                    'render:innerHTML' => [
+                        'template' => "cart/generic-floating-cart"
+                    ],
                 ],
+                //'output' => null
             ];
 
-            \pockets::crudCache( 
-                model: 'woo/cart', 
-                action: 'read', 
-                init: null, 
-                input: $read,
-            );
+            \pockets::crudCache( $query );
 
             printf(
                 <<<'T'
                 <pockets-app>
+
                     <pockets-woo-cart
-                        :read='%s'
+                        :query='%s'
                         #default='cart'
                     >
+
                         <render-html 
                             v-bind='cart.results'
                             :el='false'
                         ></render-html>
+
                     </pockets-woo-cart>
+
                 </pockets-app>
                 T,
-                json_encode( $read ),
+                json_encode( $query ),
             );
 
         }
