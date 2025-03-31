@@ -1,23 +1,29 @@
 <?php
-    $data = $this->read_resource([
-        'total',
-        'items' => [
-            'render' => [
-                'template' => 'cart/floating-cart-item'
-            ]
+
+/**
+    Template Name: Woo Generic Floating Cart
+    Template Type: static-template
+*/
+
+$model = \pockets::crud( 'woo/cart' )::initCached()->read( [
+    'total',
+    'items' => [
+        'render' => [
+            'template' => "cart/floating-cart-item"
         ]
-    ]);
+    ]
+] );
+
 ?>
-<div>
-    I am the floating cart.
-    <button @click='$pockets.woo.cart.hash++'>
-        Update
-    </button>
-    $<?= $data['total'] ?>
-    <?php
-        array_map( 
-            array: $data['items'],
-            callback: fn( $item ) => printf( $item['render'])
-        );
-    ?>
-</div>
+
+<pockets-woo-cart
+    :query='<?= json_encode( $model->get( 'query' ) ) ?>'
+    #default='{ results }'
+>
+
+    {{ results.total }}
+
+    <render-html v-for='item in results.items' :innerHTML='item.render'>
+    </render-html>
+
+</pockets-woo-cart>

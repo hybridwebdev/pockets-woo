@@ -17,12 +17,6 @@ class module extends \pockets\base {
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
 
-        add_action(
-            'wp_footer',
-            '\pockets\woo::renderCart',
-            1
-        );
-
     }
     
 }

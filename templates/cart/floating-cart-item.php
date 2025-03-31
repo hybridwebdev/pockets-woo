@@ -49,6 +49,7 @@ if( is_wp_error( $data['image'] ) ) {
     </div>
 
     <div class='floating-cart-item-contents'>
+    
         <div class='d-flex align-items-center'>
             <a href='<?= $data['link'] ?>' class="product-title">
                 <span class='text-black'><?= $data['title'] ?></span>
@@ -60,7 +61,7 @@ if( is_wp_error( $data['image'] ) ) {
         </div>
 
         <div>
-            <p class="product-sku">[<?php echo $data['sku'] ?>]</p>
+            <p class="product-sku"><?php echo $data['sku'] ?></p>
         </div>
 
         <div class='grid-info'>
