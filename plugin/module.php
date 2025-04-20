@@ -17,7 +17,7 @@ class module extends \pockets\base {
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
 
-        add_filter( 'woocommerce_locate_template', function( $template, $template_name, $template_path ){
+        add_filter( '__woocommerce_locate_template', function( $template, $template_name, $template_path ){
 
             // //echo $template;
 
