@@ -17,25 +17,18 @@ class module extends \pockets\base {
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
 
-        add_filter("apockets-node-tree/router/getSource", function( $result, $source ){
+        add_filter("pockets-node-tree/router/getSource/wp_post_type", function( $source ){
 
-            $cb = match( $source['crud_resource']['object_type'] ) {
-                default => fn( $result ) => $result,
-                'wp_post_type' => function( $result, $source ){
-                    
-                    if( $source['crud_resource']['name'] == 'product') {
+            if( $source['crud_resource']['name'] == 'product' ) {
 
-                        return \pockets::crud('node-tree/router')::init( get_permalink( wc_get_page_id( 'shop' ) ) )->read( [
-                            'getSource:<='
-                        ] );
+                return \pockets::crud('node-tree/router')::init( get_permalink( wc_get_page_id( 'shop' ) ) )->read( [
+                    'getSource:<='
+                ] );
 
-                    }
+            }
 
-                    return $result;
-                }
-            };
-
-            return call_user_func( $cb, $result, $source );
+            return $source;
+            
 
         }, 10, 2 );
 
