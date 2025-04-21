@@ -17,20 +17,6 @@ class module extends \pockets\base {
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
 
-        add_filter("pockets-node-tree/router/getSource/wp_post_type", function( $source ){
-
-            if( $source['crud_resource']['name'] == 'product' ) {
-
-                return \pockets::crud('node-tree/router')::init( get_permalink( wc_get_page_id( 'shop' ) ) )->read( [
-                    'getSource:<='
-                ] );
-
-            }
-
-            return $source;
-            
-
-        }, 10, 2 );
 
         add_filter( '__woocommerce_locate_template', function( $template, $template_name, $template_path ){
 
