@@ -23,7 +23,7 @@ printf(
         >
             <i 
                 @click='cart.api.toggle( cart.ID )' 
-                class='fa fa-shopping-cart fs-20 d-flex gap-1'
+                class='fa fa-shopping-cart fs-20 d-flex gap-1 align-items-center'
                 role='button'
             >
                 <span class='fs-14'>{{ cart.results.item_count}}</span>
