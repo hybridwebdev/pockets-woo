@@ -55,7 +55,7 @@ if( is_wp_error( $data['image'] ) ) {
     
         <div class='d-flex align-items-center'>
             <a href='<?= $data['link'] ?>'>
-                <span class='text-white'><?= $data['title'] ?></span>
+                <span class='text-black'><?= $data['title'] ?></span>
             </a>
             <i 
                 class='fa fa-trash-alt product-remove ms-auto p-2 pe-0' role='button'

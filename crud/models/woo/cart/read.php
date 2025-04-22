@@ -28,4 +28,8 @@ class read extends \pockets\crud\resource_walker {
         return $this->resource->get_taxes();
     }
 
+    function item_count(){
+        return count($this->resource->cart_contents);
+    }
+    
 }

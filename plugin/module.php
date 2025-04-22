@@ -16,6 +16,7 @@ class module extends \pockets\base {
 
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
+        \pockets_woo\nodes\module::init();
         route_filters::init();
 
     }
