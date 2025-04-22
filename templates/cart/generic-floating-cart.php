@@ -49,9 +49,15 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
                     </render-html>
                 </div>
             </div>
-            <div class='p-2 bg-accent-dk text-white d-flex align-items-center'>
+
+            <div class='p-2 bg-accent-dk text-white grid align-items-center columns-3 gap-2'>
                 Total ${{ cart.results.total }}
-                <a href='/checkout' class='ms-auto btn btn-primary-dk text-white rounded-0'>
+                <a href='/checkout' class='btn btn-primary-dk text-white rounded-0 d-flex align-items-center gap-1'>
+                    <i class='fa fa-shopping-cart'></i>
+                    Cart
+                </a>
+                <a href='/checkout' class='btn btn-primary-dk text-white rounded-0 d-flex align-items-center gap-1'>
+                    <i class="fa-solid fa-cash-register"></i>
                     Checkout
                 </a>
             </div>
