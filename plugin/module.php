@@ -19,6 +19,12 @@ class module extends \pockets\base {
         \pockets_woo\nodes\module::init();
         route_filters::init();
 
+        /**
+            Force woo to fully load in rest request 
+        */
+        add_filter( 'woocommerce_is_rest_api_request', fn() => false );
+
+
     }
     
 }

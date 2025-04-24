@@ -19,7 +19,7 @@ $data = $this->read_resource( [
     'price_range:price',
     'product_type' 
 ] );
-
+ 
 $renderPrice = fn() => sprintf(
     <<<T
     <span class='text-black fs-14 fw-5 lh-22'>%s</span>
