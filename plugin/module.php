@@ -20,9 +20,19 @@ class module extends \pockets\base {
         route_filters::init();
 
         /**
-            Force woo to fully load in rest request 
+            Force woo to fully load in crud rest request
         */
-        add_filter( 'woocommerce_is_rest_api_request', fn() => false );
+        add_filter( 'woocommerce_is_rest_api_request', function( bool $is_request ){
+
+            if(
+                \pockets\crud\end_point\module::is_endpoint_url( $_SERVER['REQUEST_URI'] )
+            ) {
+                return false;
+            };
+ 
+            return $is_request;
+
+        });
 
 
     }
