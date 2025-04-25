@@ -31,10 +31,10 @@ $renderPrice = fn() => sprintf(
 
 
 ?>
-<div class='grid-card-4 bg-white p-4 gap-1 product'>
+<div class='grid-card-4 bg-white gap-1 product p-4'>
 
     <div class='d-flex align-items-center justify-content-center'>
-        <a href="<?= $data['link'] ?>">
+        <a href="<?= $data['link'] ?>" class=''>
             <img src='<?= $data['image']['url']?>'>
         </a>
     </div>
@@ -55,7 +55,7 @@ $renderPrice = fn() => sprintf(
         :busy='false'
         #default='{ state }'
     >
-        <div :loading='state.busy' class='loading-container'>
+        <div :loading='state.busy' class='loading-container '>
             
             <span class='price d-block col-12 mb-2 fs-14'>
                 <?= $renderPrice() ?>
@@ -82,13 +82,13 @@ $renderPrice = fn() => sprintf(
                     <pockets-fancy-input
                         :debounce='0'
                         v-model:value='state.item.quantity'
-                        style='max-width: 160px'
+                        style='max-width: 180px'
                     >
                     </pockets-fancy-input>    
                     
                     <button
                         type="button"
-                        class='btn btn-outline-primary-dk text-uppercase fs-14 add-to-cart rounded-0 flex-grow-1'
+                        class='btn btn-outline-confirm text-uppercase fs-14 add-to-cart rounded-0 flex-grow-1 d-flex align-items-center gap-1 justify-content-center'
                         @click='
                             state.busy = true;
                             $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
@@ -98,7 +98,7 @@ $renderPrice = fn() => sprintf(
                             } )
                         '
                     >
-                        Add to cart
+                        <i class='fa fa-shopping-cart'></i>Add to cart
                     </button>
                 </div>
 
