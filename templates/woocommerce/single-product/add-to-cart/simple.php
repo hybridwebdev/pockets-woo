@@ -18,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 global $product;
-$product = get_product(266);
+$product = wc_get_product (get_queried_object_id());
 
 if ( ! $product->is_purchasable() ) {
 	return;
