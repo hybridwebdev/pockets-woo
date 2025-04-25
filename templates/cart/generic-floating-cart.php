@@ -41,7 +41,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
                 </button>
             </div>
             <div 
-                class='px-2 py-4'
+                class='p-2 bg-grey-100'
                 style='overflow-y: scroll;'
                 v-if='cart.results.items'
             >
@@ -49,7 +49,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
                     <p>There are no items in your cart.</p>
                     <a href='/shop' class='btn btn-accent-dk px-4 p-1 mx-auto'>View Products</a>
                 </div>
-                <div class='grid columns-1 gap-1' v-if='cart.results.items.length > 0'>
+                <div class='grid columns-1 bg-grey-100 gap-1' v-if='cart.results.items.length > 0'>
                     <render-html v-for='item in cart.results.items' v-bind='item'>
                     </render-html>
                 </div>
