@@ -70,6 +70,7 @@ if( is_wp_error( $data['image'] ) ) {
         <div class='grid-info'>
             <span>Qty:</span>
             <pockets-fancy-input
+                :min='1'
                 value='<?= $data['quantity']?>' 
                 @update:value='quantity => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => $pockets.toast.success("Quantity updated") )'
             >
