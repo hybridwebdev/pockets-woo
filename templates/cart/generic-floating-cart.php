@@ -30,13 +30,13 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
         @click.self="cart.close"
     >
         <div 
-            class='floating-cart-container bg-white text-black d-grid gap-0 loading-container'
+            class='floating-cart-container bg-white text-black d-grid gap-0 loading-container shadow-menu'
             style='grid-template-rows: auto 1fr auto;'
             :loading='cart.api.busy'
         >
-            <div class='bg-accent-dk text-white d-flex align-items-center ps-2'>
+            <div class='bg-grey-800 text-white d-flex align-items-center ps-2  fs-20 '>
                 <span>Cart</span>
-                <button @click='cart.close' class='btn btn-accent-dk fs-20 ms-auto rounded-0'>
+                <button @click='cart.close' class='btn btn-grey-700 ms-auto rounded-0'>
                     <i class='fa fa-times'></i>
                 </button>
             </div>
@@ -55,16 +55,18 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
                 </div>
             </div>
 
-            <div class='p-2 bg-accent-dk text-white grid align-items-center columns-3 gap-2'>
-                Total ${{ cart.results.total }}
-                <a href='/checkout' class='btn btn-primary-dk text-white rounded-0 d-flex align-items-center gap-1'>
-                    <i class='fa fa-shopping-cart'></i>
-                    Cart
-                </a>
-                <a href='/checkout' class='btn btn-primary-dk text-white rounded-0 d-flex align-items-center gap-1'>
-                    <i class="fa-solid fa-cash-register"></i>
-                    Checkout
-                </a>
+            <div class='p-2 bg-grey-800 text-white grid align-items-center columns-1 gap-1 fs-20'>
+                <div class='grid-info border-5 border-bottom border-grey-md pb-1'><span>Total</span> ${{ cart.results.total }}</div>
+                <div class='grid columns-2 gap-1 text-center'>
+                    <a href='/cart' class='justify-content-center btn btn-grey-700 text-white rounded-0 d-flex align-items-center gap-1'>
+                        <i class='fa fa-shopping-cart'></i>
+                        Cart
+                    </a>
+                    <a href='/checkout' class='justify-content-center btn btn-confirm text-white rounded-0 d-flex align-items-center gap-1'>
+                        <i class="fa-solid fa-cash-register"></i>
+                        Checkout
+                    </a>
+                </div>
             </div>
         </div>
 
