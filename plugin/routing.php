@@ -17,9 +17,11 @@ class routing {
 
         $routedWoo = \pockets\woo::getOptions( 'apply-routing-handler' );
 
-        wp_enqueue_style ( 'woocommerce-general' );
-        wp_enqueue_style ( 'woocommerce-layout' );
-        wp_enqueue_style ( 'woocommerce-smallscreen' );
+        add_action( 'wp_enqueue_scripts', function(){
+            wp_enqueue_style ( 'woocommerce-general' );
+            wp_enqueue_style ( 'woocommerce-layout' );
+            wp_enqueue_style ( 'woocommerce-smallscreen' );
+        });
 
         if( $routedWoo ) {
 
