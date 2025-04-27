@@ -18,6 +18,7 @@ class module extends \pockets\base {
         \pockets_woo\crud\models\woo\module::init();
         \pockets_woo\nodes\module::init();
         route_filters::init();
+        routing::init();
 
         /**
             Force woo to fully load in crud rest request
@@ -32,16 +33,12 @@ class module extends \pockets\base {
  
             return $is_request;
 
-        });
+        } );
 
-        add_action( 'wp_enqueue_scripts', function(){
-            wp_enqueue_style( 'woocommerce-general' );
-            wp_enqueue_style( 'woocommerce-layout' );
-            wp_enqueue_style( 'woocommerce-smallscreen' );
-            wp_enqueue_script( 'wc-cart-fragments' );
-            wp_enqueue_script( 'wc-single-product' );
-        });
+        \pockets::inject_data('woo', [
+            'options' => \pockets\woo::getOptions()
+        ] );
 
     }
-    
+ 
 }
