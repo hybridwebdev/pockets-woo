@@ -2,7 +2,7 @@
 namespace pockets_woo\plugin;
 
 /**
-    Bootloader for Pockets Form extension
+    Bootloader for Plugin
 */
 
 #[\AllowDynamicProperties]
