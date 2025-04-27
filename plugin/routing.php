@@ -49,12 +49,7 @@ class routing {
             /**
                 Forces page to refresh instead of loading headlessly 
             */
-            add_filter( 'pockets-node-tree/router/routes', function( $routes){
-
-                \pockets::dump( $routes);
-
-                return $routes;
-            }, 99);
+             
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
