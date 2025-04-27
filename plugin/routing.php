@@ -23,6 +23,14 @@ class routing {
             wp_enqueue_style ( 'woocommerce-smallscreen' );
         });
 
+        add_filter( 'body_class', function( $classes ) {
+
+            return array_merge( $classes, array( 
+                'woocommerce woocommerce-page woocommerce-js', 
+            ) );
+            
+        } );
+
         if( $routedWoo ) {
 
             add_action( 'wp_enqueue_scripts', function(){
@@ -34,13 +42,7 @@ class routing {
 
             } );
                     
-            add_filter( 'body_class', function( $classes ) {
-
-                return array_merge( $classes, array( 
-                    'woocommerce woocommerce-page woocommerce-js', 
-                ) );
-                
-            } );
+            
 
         }
 
