@@ -44,7 +44,7 @@ class routing {
 
         }
 
-        if( !$routedWoo ) {
+        // if( !$routedWoo ) {
             
             /**
                 Forces page to refresh instead of loading headlessly 
@@ -62,7 +62,7 @@ class routing {
                 ]
             ) );
 
-        }
+        // }
 
     }
     
