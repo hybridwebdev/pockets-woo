@@ -59,10 +59,10 @@ class routing {
                 $routes,
                 [
                     [
-                        'path' => sprintf( "%s:catchAll(.*)", wp_make_link_relative( wc_get_cart_url() ) )
+                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
                     ],
                      [
-                        'path' => sprintf( "%s:catchAll(.*)", wp_make_link_relative( wc_get_checkout_url() ) )
+                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_checkout_url() ) ))
                     ],
                 ]
             ) );
