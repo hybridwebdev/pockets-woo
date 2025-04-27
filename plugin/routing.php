@@ -49,7 +49,12 @@ class routing {
             /**
                 Forces page to refresh instead of loading headlessly 
             */
-            echo wp_make_link_relative( wc_get_cart_url() );
+            add_filter( 'pockets-node-tree/router/routes', function( $routes){
+
+                \pockets::dump( $routes);
+
+                return $routes;
+            }, 99);
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
