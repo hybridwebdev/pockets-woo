@@ -17,13 +17,13 @@ class routing {
 
         $routedWoo = \pockets\woo::getOptions( 'apply-routing-handler' );
 
+        wp_enqueue_style ( 'woocommerce-general' );
+        wp_enqueue_style ( 'woocommerce-layout' );
+        wp_enqueue_style ( 'woocommerce-smallscreen' );
+
         if( $routedWoo ) {
 
             add_action( 'wp_enqueue_scripts', function(){
-
-                wp_enqueue_style ( 'woocommerce-general' );
-                wp_enqueue_style ( 'woocommerce-layout' );
-                wp_enqueue_style ( 'woocommerce-smallscreen' );
 
                 wp_enqueue_script( 'wc-cart' );
                 wp_enqueue_script( 'wc-checkout' );
