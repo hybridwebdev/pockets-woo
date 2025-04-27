@@ -27,6 +27,8 @@ class routing {
 
             return array_merge( $classes, array( 
                 'woocommerce woocommerce-page woocommerce-js', 
+                'woocommerce-cart',
+                'woocommerce-checkout'
             ) );
             
         } );
@@ -53,9 +55,9 @@ class routing {
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
-                    [
-                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
-                    ],
+                    // [
+                    //     'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
+                    // ],
                      [
                         'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_checkout_url() ) ))
                     ],

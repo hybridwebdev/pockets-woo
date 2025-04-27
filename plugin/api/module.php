@@ -23,7 +23,7 @@ namespace pockets {
                     If set to true, a bunch of behavior is modified to allow
                     woo to work with headless router
                 */
-                'apply-routing-handler' => false
+                'apply-routing-handler' => true
             ];
 
             return match( $key ) {
