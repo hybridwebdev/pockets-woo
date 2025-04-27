@@ -28,7 +28,8 @@ class routing {
             return array_merge( $classes, array( 
                 'woocommerce woocommerce-page woocommerce-js', 
                 'woocommerce-cart',
-                'woocommerce-checkout'
+                'woocommerce-checkout',
+                'single-product'
             ) );
             
         } );
