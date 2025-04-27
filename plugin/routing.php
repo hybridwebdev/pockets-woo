@@ -41,8 +41,6 @@ class routing {
                 wp_enqueue_script( 'wc-single-product' );
 
             } );
-                    
-            
 
         }
 
@@ -51,6 +49,7 @@ class routing {
             /**
                 Forces page to refresh instead of loading headlessly 
             */
+            echo wp_make_link_relative( wc_get_cart_url() );
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
