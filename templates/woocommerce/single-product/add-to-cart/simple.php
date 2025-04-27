@@ -57,7 +57,7 @@ if ( $product->is_in_stock() ) : ?>
 			type="submit" 
 			name="add-to-cart" 
 			value="<?php echo esc_attr( $product->get_id() ); ?>" 
-			class="rounded-0 align-items-center d-flex gap-1 btn btn-outline-confirm<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"
+			class="text-uppercase rounded-0 align-items-center d-flex gap-1 btn btn-outline-confirm<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"
 		>
 			<i class='fa fa-shopping-cart'></i>
 			<?php echo esc_html( $product->single_add_to_cart_text() ); ?>
