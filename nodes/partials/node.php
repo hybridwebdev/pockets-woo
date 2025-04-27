@@ -29,8 +29,7 @@ class node extends \pockets_node_tree\nodes\node {
     }
 
     function hydrate( $node ){
-        
-        
+
         ob_start();
         woocommerce_output_all_notices();
         $content = ob_get_clean();
