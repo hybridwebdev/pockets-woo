@@ -59,9 +59,9 @@ class routing {
                     // [
                     //     'path' => sprintf( "%s:catchAll(.*)", "/product")
                     // ],
-                    // [
-                    //     'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
-                    // ],
+                    [
+                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
+                    ],
                      [
                         'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_checkout_url() ) ))
                     ],
