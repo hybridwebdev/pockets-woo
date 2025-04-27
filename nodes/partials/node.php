@@ -11,13 +11,16 @@ class node extends \pockets_node_tree\nodes\node {
 
         return [
             "fields" => [ 'base-attributes', 'style', 'bootstrap-styling' ],
-            "title" => "Partials",
+            "title" => "Woo Partials",
             'group' => "Woocommerce",
             "node" => [
-                "el" => "render-html",
+                "el" => "div",
                 "props" => [
                     "class" => "",
                     'innerHTML' => ""
+                ],
+                'data' => [
+                    'type' => "notice-wrapper"
                 ],
                 "schema" => "woo-partials"
             ]
@@ -32,8 +35,6 @@ class node extends \pockets_node_tree\nodes\node {
         woocommerce_output_all_notices();
         $content = ob_get_clean();
         $node['props']['innerHTML'] = $content;
-
-        //$node['props']['innerHTML'] = 'aaaaa';
         return $node;
 
     }
