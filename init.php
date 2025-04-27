@@ -34,5 +34,5 @@ namespace pockets_woo {
       \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
       plugin\module::init();
    }, 100 );
-    
+
 }

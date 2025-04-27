@@ -34,6 +34,13 @@ class module extends \pockets\base {
 
         });
 
+        add_action( 'wp_enqueue_scripts', function(){
+            wp_enqueue_style( 'woocommerce-general' );
+            wp_enqueue_style( 'woocommerce-layout' );
+            wp_enqueue_style( 'woocommerce-smallscreen' );
+            wp_enqueue_script( 'wc-cart-fragments' );
+            wp_enqueue_script( 'wc-single-product' );
+        });
 
     }
     
