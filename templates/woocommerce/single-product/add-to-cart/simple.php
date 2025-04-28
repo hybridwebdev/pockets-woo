@@ -19,63 +19,71 @@ defined( 'ABSPATH' ) || exit;
 
 $product = wc_get_product ( get_queried_object_id() );
 
-if ( ! $product->is_purchasable() ) {
+if ( !$product->is_purchasable() || !$product->is_in_stock() ) {
 	return;
 }
 
-if ( $product->is_in_stock() ) : ?>
+do_action( 'woocommerce_before_add_to_cart_form' ); 
 
-	<?php 
-		do_action( 'woocommerce_before_add_to_cart_form' ); 
-	?>
-	
-	<form 
-		class="d-flex gap-2 loading-container" 
-		method="post" 
-		@submit.prevent = "(e) => $pockets.woo.cart.addUsingForm(e).then( () => {
-			$pockets.toast.success('Item added');
-		}).catch(() => $pockets.toast.error('Error adding item') )"
-		:loading='$pockets.woo.cart.busy'
+?>
+
+<form 
+	class="d-flex gap-2 loading-container" 
+	method="post" 
+	@submit.prevent='$pockets.woo.cart.form( {
+		error: "Item could not be added",
+		success: "Item Added",
+		action: "addItem"
+	} ).handler'
+	 
+	:loading='$pockets.woo.cart.busy'
+>
+	<input 
+		name='product_id'
+		value='<?php echo esc_attr( $product->get_id() ); ?>'
+		type='hidden'
 	>
-		<input 
-			name='product_id'
-			value='<?php echo esc_attr( $product->get_id() ); ?>'
-			type='hidden'
-		>
 
-		<?php
-			
-			do_action( 'woocommerce_before_add_to_cart_button' );
-			do_action( 'woocommerce_before_add_to_cart_quantity' );
+	<?php
+		
+		do_action( 'woocommerce_before_add_to_cart_button' );
+		do_action( 'woocommerce_before_add_to_cart_quantity' );
+
+		$range = [
+			'max' => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+			'min' => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product )
+		];
 
 		printf(
 			<<<HTML
 				<pockets-fancy-input
 					name='quantity'
-					:value='1'
+					:min='%s'
+					:max='%s'					
+					:value='%d'
 				>
 				</pockets-fancy-input>
 			HTML,
-			apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-			apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-			$product->get_min_purchase_quantity()
+			$range['min'],
+			$range['max'],
+			$range['min']
 		);
 
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
-		?>
-		
-		<button 
-			type="submit" 
-			value="<?php echo esc_attr( $product->get_id() ); ?>" 
-			class="text-uppercase rounded-0 align-items-center d-flex gap-1 btn btn-outline-confirm<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"
-		>
-			<i class='fa fa-shopping-cart'></i>
-			<?php echo esc_html( $product->single_add_to_cart_text() ); ?>
-		</button>
+	?>
+	
+	<button 
+		type="submit" 
+		class="text-uppercase rounded-0 align-items-center d-flex gap-1 btn btn-outline-confirm"
+	>
+		<i class='fa fa-shopping-cart'></i>
+		<?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+	</button>
 
-		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
-	</form>
+	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 
-	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+</form>
 
-<?php endif; ?>
+<?php 
+
+do_action( 'woocommerce_after_add_to_cart_form' );
