@@ -1,7 +1,6 @@
 <?php
 namespace pockets_woo\plugin;
 
-
 #[\AllowDynamicProperties]
 class routing {
 
@@ -60,10 +59,24 @@ class routing {
                     //     'path' => sprintf( "%s:catchAll(.*)", "/product")
                     // ],
                     [
-                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_cart_url() ) ))
+                        'path' => sprintf( 
+                            "%s:catchAll(.*)", 
+                            untrailingslashit(
+                                wp_make_link_relative( 
+                                    wc_get_cart_url() 
+                                ) 
+                            )
+                        )
                     ],
                      [
-                        'path' => sprintf( "%s:catchAll(.*)", untrailingslashit(wp_make_link_relative( wc_get_checkout_url() ) ))
+                        'path' => sprintf( 
+                            "%s:catchAll(.*)", 
+                            untrailingslashit(
+                                wp_make_link_relative( 
+                                    wc_get_checkout_url() 
+                                ) 
+                            )
+                        )
                     ],
                 ]
             ) );
