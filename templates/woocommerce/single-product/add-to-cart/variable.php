@@ -15,17 +15,6 @@
  * @version 9.6.0
  */
 
-
-
-
-
-
-
-
-
-/**
-	internally wp_enqueue_script( 'wc-add-to-cart-variation' ) is called before here;
-*/
 $attributes = [];
 
 global $product;
@@ -36,10 +25,29 @@ if( $product->get_type() !='variable') {
 	return;
 }
 
-$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-$available_variations = $get_variations ? $product->get_available_variations() : false;
-$attributes           = $product->get_variation_attributes();
-$selected_attributes  = $product->get_default_attributes();
+$getContext = function( $product ){
+
+	//wp_enqueue_script( 'wc-add-to-cart-variation' )
+
+	$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+	$available_variations = $get_variations ? $product->get_available_variations() : false;
+	$attributes           = $product->get_variation_attributes();
+	$selected_attributes  = $product->get_default_attributes();
+
+	return [
+		$available_variations,
+		$attributes,
+		$selected_attributes,
+	];
+
+};
+
+list(
+	$available_variations,
+	$attributes,
+	$selected_attributes,
+) = $getContext( $product );
+
 
 $attribute_keys  = array_keys( $attributes );
 $variations_json = wp_json_encode( $available_variations );
@@ -47,6 +55,9 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
+<pockets-woo-selected-variation #default='state'>
+	<div><pre>{{state}}</pre></div>
+</pockets-woo-selected-variation>
 <form class="variations_form cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product->get_id() ); ?>" data-product_variations="<?php echo $variations_attr; // WPCS: XSS ok. ?>">
 	<?php do_action( 'woocommerce_before_variations_form' ); ?>
 
