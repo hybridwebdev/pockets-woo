@@ -23,6 +23,10 @@ if ( !$product->is_purchasable() || !$product->is_in_stock() ) {
 	return;
 }
 
+if( $product->get_type() !='simple') {
+	return;
+}
+
 do_action( 'woocommerce_before_add_to_cart_form' ); 
 
 ?>

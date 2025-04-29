@@ -33,7 +33,6 @@ class routing {
             
         } );
 
-        if( $routedWoo ) {
 
             add_action( 'wp_enqueue_scripts', function(){
 
@@ -41,10 +40,10 @@ class routing {
                 wp_enqueue_script( 'wc-checkout' );
                 wp_enqueue_script( 'wc-cart-fragments' );
                 wp_enqueue_script( 'wc-single-product' );
-
+                wp_enqueue_script( 'wc-add-to-cart-variation' );
+                
             } );
 
-        }
 
         // if( !$routedWoo ) {
             
@@ -55,9 +54,9 @@ class routing {
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
-                    // [
-                    //     'path' => sprintf( "%s:catchAll(.*)", "/product")
-                    // ],
+                    [
+                        'path' => sprintf( "%s:catchAll(.*)", "/product")
+                    ],
                     [
                         'path' => sprintf( 
                             "%s:catchAll(.*)", 
