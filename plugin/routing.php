@@ -25,24 +25,24 @@ class routing {
         add_filter( 'body_class', function( $classes ) {
 
             return array_merge( $classes, array( 
-                'woocommerce woocommerce-page woocommerce-js', 
-                'woocommerce-cart',
-                'woocommerce-checkout',
-                'single-product'
+                // 'woocommerce woocommerce-page woocommerce-js', 
+                // 'woocommerce-cart',
+                // 'woocommerce-checkout',
+                // 'single-product'
             ) );
             
         } );
 
 
-            add_action( 'wp_enqueue_scripts', function(){
+        add_action( 'wp_enqueue_scripts', function(){
 
-                wp_enqueue_script( 'wc-cart' );
-                wp_enqueue_script( 'wc-checkout' );
-                wp_enqueue_script( 'wc-cart-fragments' );
-                wp_enqueue_script( 'wc-single-product' );
-                wp_enqueue_script( 'wc-add-to-cart-variation' );
-                
-            } );
+            wp_enqueue_script( 'wc-cart' );
+            wp_enqueue_script( 'wc-checkout' );
+            wp_enqueue_script( 'wc-cart-fragments' );
+            wp_enqueue_script( 'wc-single-product' );
+            wp_enqueue_script( 'wc-add-to-cart-variation' );
+            
+        } );
 
 
         // if( !$routedWoo ) {
@@ -54,9 +54,9 @@ class routing {
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
-                    [
-                        'path' => sprintf( "%s:catchAll(.*)", "/product")
-                    ],
+                    // [
+                    //     'path' => sprintf( "%s:catchAll(.*)", "/product")
+                    // ],
                     [
                         'path' => sprintf( 
                             "%s:catchAll(.*)", 
