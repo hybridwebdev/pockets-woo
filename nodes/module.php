@@ -9,7 +9,7 @@ class module {
         
         floating_cart\trigger::init();
         floating_cart\cart_container::init();
-        partials\node::init();
+        partials_loader\node::init();
     }
 
 
