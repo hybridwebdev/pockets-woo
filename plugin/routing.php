@@ -44,10 +44,10 @@ class routing {
 
             return array_merge( $dependencies, [
                 'wc-add-to-cart-variation',
-                'wc-checkout',
                 'wc-cart-fragments',
-                'wc-cart',
-                //'wc-single-product' 
+                'wc-single-product' 
+                // 'wc-checkout',
+                // 'wc-cart',
             ] );
             
         } );
@@ -65,26 +65,26 @@ class routing {
                     // [
                     //     'path' => sprintf( "%s:catchAll(.*)", "/product")
                     // ],
-                    // [
-                    //     'path' => sprintf( 
-                    //         "%s:catchAll(.*)", 
-                    //         untrailingslashit(
-                    //             wp_make_link_relative( 
-                    //                 wc_get_cart_url() 
-                    //             ) 
-                    //         )
-                    //     )
-                    // ],
-                    // [
-                    //     'path' => sprintf( 
-                    //         "%s:catchAll(.*)", 
-                    //         untrailingslashit(
-                    //             wp_make_link_relative( 
-                    //                 wc_get_checkout_url() 
-                    //             ) 
-                    //         )
-                    //     )
-                    // ],
+                    [
+                        'path' => sprintf( 
+                            "%s:catchAll(.*)", 
+                            untrailingslashit(
+                                wp_make_link_relative( 
+                                    wc_get_cart_url() 
+                                ) 
+                            )
+                        )
+                    ],
+                    [
+                        'path' => sprintf( 
+                            "%s:catchAll(.*)", 
+                            untrailingslashit(
+                                wp_make_link_relative( 
+                                    wc_get_checkout_url() 
+                                ) 
+                            )
+                        )
+                    ],
                 ]
             ) );
 
