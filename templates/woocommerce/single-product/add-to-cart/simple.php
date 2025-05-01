@@ -34,12 +34,11 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 <form 
 	class="d-flex gap-2 loading-container" 
 	method="post" 
-	@submit.prevent='$pockets.woo.cart.form( {
-		error: "Item could not be added",
-		success: "Item Added",
-		action: "addItem"
-	} ).handler'
-	 
+	v-pockets-woo-form-handler='{
+		action: "addItem",
+		error: "Item could not be added.",
+		success: "Item added to cart."
+	}'
 	:loading='$pockets.woo.cart.busy'
 >
 	<input 

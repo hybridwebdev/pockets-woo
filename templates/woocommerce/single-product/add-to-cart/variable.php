@@ -53,19 +53,20 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <p>
-	{{ $pockets.woo.variation}}
+	{{ $pockets.woo.variation_form.selected }}
 </p>
 
 <form 
 	
 	class="variation_form loading-container" 
-	v-woo-variation-form
 	
-	@submit.prevent='$pockets.woo.cart.form( {
-		error: "Item could not be added",
-		success: "Item Added",
-		action: "addItem"
-	} ).handler'
+	v-pockets-woo-variation-form-init
+	
+	v-pockets-woo-form-handler='{
+		action: "addItem",
+		error: "Item could not be added.",
+		success: "Item added to cart."
+	}'
 	 
 	:loading='$pockets.woo.cart.busy'
 
