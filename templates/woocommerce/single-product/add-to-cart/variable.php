@@ -25,10 +25,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
-<p>
-	{{ $pockets.woo.variation_form.selected }}
-</p>
-
 <form 
 
 	v-pockets-woo-variation-form-init
@@ -55,35 +51,47 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	<?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
 		<p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woocommerce' ) ) ); ?></p>
 	<?php else : ?>
-		<table class="variations" cellspacing="0" role="presentation">
-			<tbody>
-				<?php foreach ( $attributes as $attribute_name => $options ) : ?>
-					<tr>
-						<th class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></label></th>
-						<td class="value">
-							<?php
-								wc_dropdown_variation_attribute_options(
-									array(
-										'options'   => $options,
-										'attribute' => $attribute_name,
-										'product'   => $product,
-									)
-								);
-								/**
-								 * Filters the reset variation button.
-								 *
-								 * @since 2.5.0
-								 *
-								 * @param string  $button The reset variation button HTML.
-								 */
-								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
-							?>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
+		<div class="variations grid columns-1 gap-1" role="presentation">
+			<?php foreach ( $attributes as $attribute_name => $options ) : ?>
+				<label class='grid-info'>
+					<span class="label">
+						<?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?>
+					</span>
+					<div class="value">
+						<?php
+							wc_dropdown_variation_attribute_options(
+								array(
+									'class' => 'form-control rounded-0',
+									'options'   => $options,
+									'attribute' => $attribute_name,
+									'product'   => $product,
+								)
+							);
+							
+						?>
+					</div>
+				</label>
+				<?php 
+					/**
+						* Filters the reset variation button.
+						*
+						* @since 2.5.0
+						*
+						* @param string  $button The reset variation button HTML.
+					*/
+					echo end( $attribute_keys ) === $attribute_name 
+						? wp_kses_post( 
+							apply_filters( 'woocommerce_reset_variations_link', 
+								'<a class="px-2 py-half text-white rounded-0 btn btn-danger ms-auto reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' 
+							) 
+						) 
+						: '';
+				?>
+			<?php endforeach; ?>
+		</div>
+
 		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
+
 		<?php do_action( 'woocommerce_after_variations_table' ); ?>
 
 		<div class="single_variation_wrap">
