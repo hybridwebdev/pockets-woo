@@ -9,7 +9,6 @@ class routing {
     function __construct(){
         
         $this->apply_woo_routing();
-
     
         add_filter( 'woocommerce_locate_template', function( $template, $template_name, $template_path ){
 

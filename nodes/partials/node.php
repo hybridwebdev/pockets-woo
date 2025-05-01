@@ -31,9 +31,15 @@ class node extends \pockets_node_tree\nodes\node {
     function hydrate( $node ){
 
         ob_start();
-        woocommerce_output_all_notices();
+        //woocommerce_output_all_notices();
+        global $product;
+
+        $product = wc_get_product ( get_queried_object_id() );
+
+        woocommerce_template_single_add_to_cart();
         $content = ob_get_clean();
         $node['props']['innerHTML'] = $content;
+        
         return $node;
 
     }

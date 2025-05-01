@@ -15,15 +15,11 @@
  * @version 7.0.1
  */
 
+global $product; 
+
 defined( 'ABSPATH' ) || exit;
 
-$product = wc_get_product ( get_queried_object_id() );
-
 if ( !$product->is_purchasable() || !$product->is_in_stock() ) {
-	return;
-}
-
-if( $product->get_type() !='simple') {
 	return;
 }
 
