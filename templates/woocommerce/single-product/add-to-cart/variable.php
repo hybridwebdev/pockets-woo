@@ -82,7 +82,9 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 					echo end( $attribute_keys ) === $attribute_name 
 						? wp_kses_post( 
 							apply_filters( 'woocommerce_reset_variations_link', 
-								'<a class="px-2 py-half text-white rounded-0 btn btn-danger ms-auto reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' 
+								'<a class="px-2 py-half text-white rounded-0 btn btn-danger ms-auto reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' 
+									. esc_html__( 'Clear', 'woocommerce' ) 
+								. '</a>' 
 							) 
 						) 
 						: '';
