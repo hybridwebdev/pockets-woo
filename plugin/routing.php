@@ -34,13 +34,17 @@ class routing {
         } );
 
 
-        add_action( 'wp_enqueue_scripts', function(){
+        add_filter( "pockets/vue/app.js/dependencies", function( array $dependencies ){
 
-            wp_enqueue_script( 'wc-cart' );
-            wp_enqueue_script( 'wc-checkout' );
-            wp_enqueue_script( 'wc-cart-fragments' );
-            wp_enqueue_script( 'wc-single-product' );
-            wp_enqueue_script( 'wc-add-to-cart-variation' );
+            return array_merge( $dependencies, [
+                'wc-add-to-cart-variation'
+            ] );
+            
+            // wp_enqueue_script( 'wc-cart' );
+            // wp_enqueue_script( 'wc-checkout' );
+            // wp_enqueue_script( 'wc-cart-fragments' );
+            // wp_enqueue_script( 'wc-single-product' );
+            // wp_enqueue_script( 'wc-add-to-cart-variation' );
             
         } );
 
