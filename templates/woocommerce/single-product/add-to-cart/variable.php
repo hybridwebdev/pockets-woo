@@ -15,36 +15,9 @@
  * @version 9.6.0
  */
 
-$attributes = [];
+defined( 'ABSPATH' ) || exit;
 
 global $product;
-
-$product = wc_get_product ( get_queried_object_id() );
-
-if( $product->get_type() !='variable') {
-	return;
-}
-
-$getContext = function( $product ){
-
-	$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-	$available_variations = $get_variations ? $product->get_available_variations() : false;
-	$attributes           = $product->get_variation_attributes();
-	$selected_attributes  = $product->get_default_attributes();
-
-	return [
-		$available_variations,
-		$attributes,
-		$selected_attributes,
-	];
-
-};
-
-list(
-	$available_variations,
-	$attributes,
-	$selected_attributes,
-) = $getContext( $product );
 
 $attribute_keys  = array_keys( $attributes );
 $variations_json = wp_json_encode( $available_variations );
@@ -57,9 +30,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 </p>
 
 <form 
-	
-	class="variation_form loading-container" 
-	
+
 	v-pockets-woo-variation-form-init
 	
 	v-pockets-woo-form-handler='{
@@ -70,17 +41,15 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	 
 	:loading='$pockets.woo.cart.busy'
 
+	class="variations_form cart loading-container" 
+
 	action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" 
 	method="post" 
 	enctype='multipart/form-data' 
 	data-product_id="<?php echo absint( $product->get_id() ); ?>" 
 	data-product_variations="<?php echo $variations_attr; // WPCS: XSS ok. ?>"
+
 >
-	<input 
-		name='product_id'
-		value='<?php echo esc_attr( $product->get_id() ); ?>'
-		type='hidden'
-	>
 	<?php do_action( 'woocommerce_before_variations_form' ); ?>
 
 	<?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
@@ -101,12 +70,12 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 									)
 								);
 								/**
-								* Filters the reset variation button.
-								*
-								* @since 2.5.0
-								*
-								* @param string  $button The reset variation button HTML.
-								*/
+								 * Filters the reset variation button.
+								 *
+								 * @since 2.5.0
+								 *
+								 * @param string  $button The reset variation button HTML.
+								 */
 								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
 							?>
 						</td>
@@ -120,22 +89,22 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 		<div class="single_variation_wrap">
 			<?php
 				/**
-				* Hook: woocommerce_before_single_variation.
-				*/
+				 * Hook: woocommerce_before_single_variation.
+				 */
 				do_action( 'woocommerce_before_single_variation' );
 
 				/**
-				* Hook: woocommerce_single_variation. Used to output the cart button and placeholder for variation data.
-				*
-				* @since 2.4.0
-				* @hooked woocommerce_single_variation - 10 Empty div for variation data.
-				* @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
-				*/
+				 * Hook: woocommerce_single_variation. Used to output the cart button and placeholder for variation data.
+				 *
+				 * @since 2.4.0
+				 * @hooked woocommerce_single_variation - 10 Empty div for variation data.
+				 * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
+				 */
 				do_action( 'woocommerce_single_variation' );
 
 				/**
-				* Hook: woocommerce_after_single_variation.
-				*/
+				 * Hook: woocommerce_after_single_variation.
+				 */
 				do_action( 'woocommerce_after_single_variation' );
 			?>
 		</div>
@@ -143,8 +112,6 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 	<?php do_action( 'woocommerce_after_variations_form' ); ?>
 </form>
-
-
 
 <?php
 do_action( 'woocommerce_after_add_to_cart_form' );
