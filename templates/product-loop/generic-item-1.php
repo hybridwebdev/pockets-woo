@@ -67,7 +67,7 @@ $renderPrice = fn() => sprintf(
                 <div>
                     <a 
                         href="<?php echo esc_url($data['link']); ?>" 
-                        class='fs-14 btn btn-outline-primary d-block text-center text-uppercase view-options text-black'
+                        class='fs-14 btn btn-grey-800 text-white d-block text-center text-uppercase view-options p-1 rounded-0'
                     >View options</a>
                 </div>
             <?php
