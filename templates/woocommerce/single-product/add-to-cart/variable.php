@@ -63,7 +63,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	v-pockets-woo-variation-form-init
 	
 	v-pockets-woo-form-handler='{
-		action: "addItem",
+		action: "cart.addItem",
 		error: "Item could not be added.",
 		success: "Item added to cart."
 	}'
