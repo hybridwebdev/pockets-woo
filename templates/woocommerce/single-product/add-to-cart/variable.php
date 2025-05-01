@@ -94,7 +94,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 		<?php do_action( 'woocommerce_after_variations_table' ); ?>
 
-		<div class="single_variation_wrap">
+		<div class="single_variation_wrap grid columns-1 gap-1">
 			<?php
 				/**
 				 * Hook: woocommerce_before_single_variation.
