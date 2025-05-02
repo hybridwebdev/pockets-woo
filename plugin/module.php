@@ -6,6 +6,7 @@ namespace pockets_woo\plugin;
 */
 
 #[\AllowDynamicProperties]
+
 class module extends \pockets\base {
 
     use \pockets\traits\initOnce;
