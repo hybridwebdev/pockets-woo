@@ -36,7 +36,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		enctype="multipart/form-data" 
 		aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>"
 	>
-		{{ $pockets.data }}
 		<?php if ( $checkout->get_checkout_fields() ) : ?>
 
 			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
