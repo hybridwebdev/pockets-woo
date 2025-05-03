@@ -28,7 +28,9 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 }
 
 ?>
+<pockets-app-guard>
 	<form 
+		
 		name="checkout" 
 		method="post" 
 		class="checkout woocommerce-checkout" 
@@ -68,4 +70,5 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 
 	</form>
-	<?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
+</pockets-app-guard>
+<?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
