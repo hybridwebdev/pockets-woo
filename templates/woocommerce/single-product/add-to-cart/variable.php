@@ -37,7 +37,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	 
 	:loading='$pockets.woo.cart.busy'
 
-	class="variations_form cart loading-container" 
+	class="variations_form cart loading-container grid columns-1 gap-2" 
 
 	action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" 
 	method="post" 
@@ -51,7 +51,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	<?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
 		<p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woocommerce' ) ) ); ?></p>
 	<?php else : ?>
-		<div class="variations grid columns-1 gap-1" role="presentation">
+		<div class="variations grid columns-1 gap-2" role="presentation">
 			<?php foreach ( $attributes as $attribute_name => $options ) : ?>
 				<label class='grid-info'>
 					<span class="label">
@@ -82,7 +82,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 					echo end( $attribute_keys ) === $attribute_name 
 						? wp_kses_post( 
 							apply_filters( 'woocommerce_reset_variations_link', 
-								'<a class="px-2 py-half text-white rounded-0 btn btn-danger ms-auto reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' 
+								'<a class="px-2 py-half rounded-0 btn btn-outline-danger ms-auto reset_variations" href="#" aria-label="' . esc_attr__( 'Clear options', 'woocommerce' ) . '">' 
 									. esc_html__( 'Clear', 'woocommerce' ) 
 								. '</a>' 
 							) 
