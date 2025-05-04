@@ -38,13 +38,13 @@ global $product;
 		$range['max'],
 		$range['min']
 	);
-
 	do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
 
 	<button 
 		type="submit" 
 		class="text-uppercase rounded-0 align-items-center d-flex gap-1 btn btn-outline-confirm single_add_to_cart_button <?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"
+		:disabled='!$pockets.woo.variation_form.selected'
 	>
 		<i class='fa fa-shopping-cart'></i>
 		<?php echo esc_html( $product->single_add_to_cart_text() ); ?>
