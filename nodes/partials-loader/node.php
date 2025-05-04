@@ -1,7 +1,38 @@
 <?php 
 namespace pockets_woo\nodes\partials_loader;
 
+/**
+    You can add a new partial by applying a filter via the static $getAvailablePartials property name.
+    The function should return an array like so:
+    [
+        'text' => "Text to show in the select field when choosing a partial in the editor",
+        'value' => "should be a text value that is unique for the partial.",
+        'callback' => function( $node ) {
+
+            should a callback that handles how the nodes innerHTML is generated.
+            $node will be an array_dot_prop wrapped instance of the node.
+            
+        }
+    ]
+*/
+
+trait getAvailablePartials {
+
+    /**
+        Hook name for apply_filters for getAvailablePartials function  
+    */
+    
+    static function getAvailablePartials() : array {
+        return apply_filters( static::$getAvailablePartials, [] );
+    }
+
+    static $getAvailablePartials = "pockets_woo/nodes/partials_loader/getAvailablePartials";
+
+}
+
 class node extends \pockets_node_tree\nodes\node {
+
+    use getAvailablePartials;
 
     public $edit_fields = [
          [
@@ -36,29 +67,42 @@ class node extends \pockets_node_tree\nodes\node {
 
         $node = $this->array_dot_prop( $node );
 
-        $handler = match( $node->get( 'data.type', false ) ){
+        /**
+        
+            Aggregate registered partials list and look for their callbacks.
+            Used to map node.data.type value to the corresponding handler. 
+            If handler is not found or is not a function, a fallback will be
+            used.
 
-            default => function(){
+        */
+        $callbacks = array_reduce(
+            array: static::getAvailablePartials(),
+            callback: function( $acc, $partial ){
+                $acc->set( $partial['value'], $partial['render'] );
+                return $acc;
+            },
+            initial: $this->array_dot_prop([])
+        );
+
+        $render = $callbacks->get( $node->get( 'data.type', false ), false );
+
+        if( !$render || !is_callable( $render ) ) {
+
+            $render = function(){
                echo "Invalid Partial type";
-            },
+            };
 
-            'cart/notices-wrapper' => function(){
-                echo "Notices wrapper";
-            },
-            
-            "single-product/add-to-cart" => function(){
-
-                global $product;
-                $product = wc_get_product ( get_queried_object_id() );
-                woocommerce_template_single_add_to_cart();
-
-            }
-
-        };
+        }
 
         ob_start();
         
-        $handler();
+        /**
+         
+            Render is invoked and whatever it echoes out is used to generate
+            the nodes innerHTML. 
+
+        */
+        $render( $node );
 
         $node->set( 'props.innerHTML', ob_get_clean() );
 
@@ -94,16 +138,4 @@ class node extends \pockets_node_tree\nodes\node {
         return $node;
     }
 
-    static function getAvailablePartials(){
-        return [
-            [
-                'value' => 'single-product/add-to-cart',
-                'text' => "Single Product / Add To Cart"
-            ],
-            [
-                'value' => 'cart/notices-wrapper',
-                'text' => "Notices wrapper"
-            ]
-        ];
-    }
 }
