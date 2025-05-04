@@ -49,7 +49,17 @@ partials::register( [
     'key' => 'single-product/price',
     'title' => "Single Product Price",
     'render' => function( $node ){
-        echo "single product price";
+        
+        $product = get_queried_object();
+
+        $data = \pockets::crud('woo/product')::init( $product )->read( [
+            'render' => [
+                'template' => 'single-product/price'
+            ]
+        ] );
+        
+        echo $data['render'];
+
     }
     
 ] );
