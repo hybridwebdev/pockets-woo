@@ -18,8 +18,11 @@ class module extends \pockets\base {
         api\module::init();
         \pockets_woo\crud\models\woo\module::init();
         \pockets_woo\nodes\module::init();
+        \pockets_woo\template_hooks\module::init();
+        
         route_filters::init();
         routing::init();
+
 
         /**
             Force woo to fully load in crud rest request
