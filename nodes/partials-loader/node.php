@@ -6,7 +6,7 @@ namespace pockets_woo\nodes\partials_loader;
     The function should return an array like so:
     [
         'text' => "Text to show in the select field when choosing a partial in the editor",
-        'value' => "should be a text value that is unique for the partial.",
+        'key' => "should be a text key that is unique for the partial.",
         'callback' => function( $node ) {
 
             should a callback that handles how the nodes innerHTML is generated.
@@ -78,7 +78,7 @@ class node extends \pockets_node_tree\nodes\node {
         $callbacks = array_reduce(
             array: static::getAvailablePartials(),
             callback: function( $acc, $partial ){
-                $acc->set( $partial['value'], $partial['render'] );
+                $acc->set( $partial['key'], $partial['render'] );
                 return $acc;
             },
             initial: $this->array_dot_prop([])

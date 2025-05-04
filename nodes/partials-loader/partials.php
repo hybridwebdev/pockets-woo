@@ -21,8 +21,8 @@ class partials {
 
 partials::register( [
 
-    'value' => 'single-product/add-to-cart',
-    'text' => "Single Product / Add To Cart",
+    'key' => 'single-product/add-to-cart',
+    'title' => "Single Product / Add To Cart",
     'render' => function( $node ){
 
         global $product;
@@ -35,8 +35,8 @@ partials::register( [
 
 partials::register( [
 
-    'value' => 'single-product/price',
-    'text' => "Single Product Price",
+    'key' => 'single-product/price',
+    'title' => "Single Product Price",
     'render' => function( $node ){
         echo "single product price";
     }
@@ -45,8 +45,8 @@ partials::register( [
 
 partials::register( [
     
-    'value' => 'cart/notices-wrapper',
-    'text' => "Notices wrapper",
+    'key' => 'cart/notices-wrapper',
+    'title' => "Notices wrapper",
     'render' => function( $node ){
         echo "Notices wrapper";
     }

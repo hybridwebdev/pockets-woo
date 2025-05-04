@@ -11,8 +11,8 @@
                                 %s
                             </option>
                         HTML,
-                        $option['value'],
-                        $option['text']
+                        $option['key'],
+                        $option['title']
                     )
                 ) 
             ?>
