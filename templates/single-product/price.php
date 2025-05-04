@@ -1,8 +1,19 @@
 <?php
 
 $productData = $this->read_resource( [
-    'product_type'
+    'product_type',
+    "price_range:price"
 ] );
+
+ 
+$renderPrice = fn() => sprintf(
+    <<<T
+    %s
+    T,
+    ( $productData['price']['max'] ?? false) 
+        ? sprintf( "%s to %s", $productData['price']['min'], $productData['price']['max'] ) 
+        : sprintf( "%s", $productData['price']['min'] ) 
+);
 
 if( $productData['product_type'] == "simple" ) {
     $price = $this->read_resource(['price'])['price'];
@@ -10,7 +21,7 @@ if( $productData['product_type'] == "simple" ) {
         <<<'HTML'
             %s
         HTML,
-        $price
+        $renderPrice()
     );
 }
 
@@ -27,7 +38,7 @@ if( $productData['product_type'] == "variable" ) {
                 %s
             </div>
         HTML,
-        "Price range here"
+        $renderPrice()
     );
     
 }
