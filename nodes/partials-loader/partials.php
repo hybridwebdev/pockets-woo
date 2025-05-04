@@ -33,6 +33,17 @@ partials::register( [
 
 ] );
 
+
+partials::register( [
+
+    'key' => 'single-product/description',
+    'title' => "Single Product Description",
+    'render' => function( $node ){
+        echo "single product description";
+    }
+    
+] );
+
 partials::register( [
 
     'key' => 'single-product/price',
