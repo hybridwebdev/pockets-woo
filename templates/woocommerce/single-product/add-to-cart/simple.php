@@ -20,7 +20,13 @@ global $product;
 defined( 'ABSPATH' ) || exit;
 
 if ( !$product->is_purchasable() || !$product->is_in_stock() ) {
-	return;
+	return printf(
+		<<<HTML
+			<div class='alert alert-danger'>
+				Currently out of stock or cannot be purchased.
+			</div>
+		HTML
+	);
 }
 
 do_action( 'woocommerce_before_add_to_cart_form' ); 

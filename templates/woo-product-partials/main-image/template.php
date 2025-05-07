@@ -15,7 +15,7 @@ $imageOptions = wp_parse_args(
     ],
 );
 
-if( $imageOptions['fallback'] == '') {
+if( $imageOptions['fallback'] == '' ) {
     $imageOptions['fallback'] = wc_placeholder_img_src( $imageOptions['size'] );
 }
 
