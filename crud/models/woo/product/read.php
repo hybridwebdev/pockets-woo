@@ -9,7 +9,8 @@ class read extends \pockets\crud\resource_walker {
     function image( array $read ) : \Wp_Error | array {
         //"https://place-hold.it/80x80"
         $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
-        return \pockets::crud('image')::init( $image_id )->read( $read );
+        return \pockets::crud( 'image' )::init( $image_id )->read( $read );
+
     }
  
     function ID(){
@@ -108,6 +109,10 @@ class read extends \pockets\crud\resource_walker {
         
         return \pockets::crud('woo/product')::init( $this->resource->get_id() )->read( $read );
 
+    }
+
+    function description(){
+        return apply_filters( 'woocommerce_description', $this->resource->get_description() );
     }
 
     function short_description(){

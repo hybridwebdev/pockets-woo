@@ -19,6 +19,9 @@ class partials {
 
 }
 
+/**
+    Single Product partials
+*/
 partials::register( [
 
     'key' => 'single-product/add-to-cart',
@@ -39,7 +42,38 @@ partials::register( [
     'key' => 'single-product/description',
     'title' => "Single Product Description",
     'render' => function( $node ){
-        echo "single product description";
+        
+        $product = get_queried_object();
+
+        $data = \pockets::crud('woo/product')::init( $product )->read( [
+            'render' => [
+                'template' => 'single-product/description'
+            ]
+        ] );
+        
+        echo $data['render'];
+
+    }
+    
+] );
+
+
+partials::register( [
+
+    'key' => 'single-product/main-image',
+    'title' => "Single Product / Main Image",
+    'render' => function( $node ){
+        
+        $product = get_queried_object();
+
+        $data = \pockets::crud('woo/product')::init( $product )->read( [
+            'render' => [
+                'template' => 'single-product/main-image'
+            ]
+        ] );
+        
+        echo $data['render'];
+
     }
     
 ] );
@@ -63,6 +97,10 @@ partials::register( [
     }
     
 ] );
+
+/**
+    Cart partials
+*/
 
 partials::register( [
     
