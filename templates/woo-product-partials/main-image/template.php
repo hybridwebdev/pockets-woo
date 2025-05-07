@@ -1,5 +1,11 @@
 <?php
 
+/**
+    Template Name: Woo Product Main Image 
+    Template Type: woo-product-template
+    Template Controller: controller
+*/
+
 $productData = $this->read_resource( [
     'product_type',
     'image' => [

@@ -42,6 +42,30 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
         ];
         
     }
- 
+
+    
+    function hydrate( $node ){
+        
+        $product = get_queried_object();
+        
+        $html = 'No template selected';
+
+        if( $node['data']['template'] ) {
+            
+            $html = \pockets::crud('woo/product')::init( $product )->read( [
+                'render' => $node['data']
+            ] )['render'];
+            
+        }
+        
+        if( is_wp_error( $html ) ) {
+            $html = $html->get_error_message();
+        };
+
+        $node['props']['innerHTML'] = $html;
+        
+        return $node;
+
+    }
 
 }

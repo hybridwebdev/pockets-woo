@@ -9,7 +9,6 @@ class module {
         
         floating_cart\trigger::init();
         floating_cart\cart_container::init();
-        partials_loader\module::init();
         product_template_loader\node::init();
         
     }

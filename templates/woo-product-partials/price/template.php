@@ -1,5 +1,11 @@
 <?php
 
+/**
+    Template Name: Woo Product Price 
+    Template Type: woo-product-template
+    Template Controller: controller
+*/
+
 $productData = $this->read_resource( [
     'product_type',
     "price_range:price"
