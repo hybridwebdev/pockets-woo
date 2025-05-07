@@ -11,9 +11,13 @@ $imageOptions = wp_parse_args(
     [
         'class' => "",
         'size' => "full",
-        'fallback' => wc_placeholder_img_src()
+        'fallback' => ''
     ],
 );
+
+if( $imageOptions['fallback'] == '') {
+    $imageOptions['fallback'] = wc_placeholder_img_src( $imageOptions['size'] );
+}
 
 $productData = $this->read_resource( [
     'product_type',
