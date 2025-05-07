@@ -10,7 +10,8 @@ $imageOptions = wp_parse_args(
     $data,
     [
         'class' => "",
-        'size' => "full"
+        'size' => "full",
+        'fallback' => wc_placeholder_img_src()
     ],
 );
 
@@ -18,7 +19,7 @@ $productData = $this->read_resource( [
     'product_type',
     'image' => [
         'url' => [
-            'fallback' => woocommerce_placeholder_img_src(),
+            'fallback' => $imageOptions['fallback'],
             'size' => $imageOptions['size']
         ]
     ]
