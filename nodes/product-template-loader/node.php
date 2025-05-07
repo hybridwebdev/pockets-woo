@@ -42,7 +42,6 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
         ];
         
     }
-
     
     function hydrate( $node ){
         
@@ -52,7 +51,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
 
         if( $node['data']['template'] ) {
             
-            $html = \pockets::crud('woo/product')::init( $product )->read( [
+            $html = \pockets::crud( 'woo/product' )::init( $product )->read( [
                 'render' => $node['data']
             ] )['render'];
             
