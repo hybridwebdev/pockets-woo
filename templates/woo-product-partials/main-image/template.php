@@ -11,7 +11,8 @@ $imageOptions = wp_parse_args(
     [
         'class' => "",
         'size' => "full",
-        'fallback' => ''
+        'fallback' => '',
+        'style' => ""
     ],
 );
 
@@ -34,10 +35,11 @@ if( $productData['product_type'] == "simple" ) {
 
     return printf(
         <<<'HTML'
-            <img src='%1$s' class='%2$s'>
+            <img src='%1$s' class='%2$s' style='%3$s'>
         HTML,
         $productData['image']['url'],
-        $imageOptions['class']
+        $imageOptions['class'],
+        $imageOptions['style']
     );
     
 }
@@ -50,15 +52,18 @@ if( $productData['product_type'] == "variable" ) {
                 v-if='$pockets.woo.variation_form.selected && $pockets.woo.variation_form.selected.image.src!=""' 
                 :src='$pockets.woo.variation_form.selected.image.src'
                 class='%2$s'
+                style='%3$s'
             >
             <img 
                 v-else 
                 src='%1$s' 
                 class='%2$s'
+                style='%3$s'
             />
         HTML,
         $productData['image']['url'],
-        $imageOptions['class']
+        $imageOptions['class'],
+        $imageOptions['style']
     );
     
 }

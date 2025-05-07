@@ -32,6 +32,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
                 "el" => "render-html",
                 'data' => [
                     'template' => false,
+                    'style' => ""
                 ],
                 "props" => [
                     "class" => "col-12",
