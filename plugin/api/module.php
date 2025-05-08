@@ -32,6 +32,42 @@ namespace pockets {
             };
         }
 
+        /** 
+            Helper function to get JUST the raw price 
+            with woo's money formatting applied.
+            accepts normal args that wc_price does as well as 2 additional
+            flags:
+            [
+                If false, returns just the price without the HTML
+                'as-html' => bool default false
+                If true, includes currency symbol
+                'include-currency' => bool default true
+            ]
+        */
+        static function wc_price( float | int $price, ?array $args ) {
+
+            $parsedArgs = wp_parse_args(
+                is_array( $args ) ? $args : [],
+                [
+                    'as-html' => false,
+                    'include-currency' => true
+                ]
+            );
+
+            if( $parsedArgs['include-currency'] == false ) {
+                $parsedArgs['currency'] = ' ';
+            }
+
+            $price = wc_price( $price, $parsedArgs );
+
+            if( $parsedArgs['as-html'] == false ){
+                return html_entity_decode( strip_tags( $price ) );
+            }
+
+            return $price;
+
+        }
+
     }
     
 }

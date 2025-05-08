@@ -25,8 +25,8 @@ class read extends \pockets\crud\resource_walker {
         return $this->resource->get_sku();
     }
 
-    function price(){
-        return $this->resource->get_price();
+    function price( ?array $args ){
+        return \pockets\woo::wc_price( $this->resource->get_price(), $args );
     }
 
     function parentID(){
@@ -64,31 +64,17 @@ class read extends \pockets\crud\resource_walker {
     }
 
     function price_range( ?array $args = [] ){
-        
-        list(
-            'format' => $format
-        ) = wp_parse_args( ( $args ?? [] ), [
-            'format' => true
-        ]); 
-
-        $formatter = fn( $price ) => $format ? wc_price( $price ) : $price; 
-
+         
         if ( $this->resource->is_type( 'variable' ) ) {
-
-            $min_price = $this->resource->get_variation_price( 'min' );  
-            $max_price = $this->resource->get_variation_price( 'max' ); 
-            
             return [
-                'min' => $formatter( $min_price ),
-                'max' => $formatter( $max_price )
+                'min' => \pockets\woo::wc_price( $this->resource->get_variation_price( 'min' ), $args ),
+                'max' => \pockets\woo::wc_price( $this->resource->get_variation_price( 'max' ), $args )
             ];
-
-
         } 
         
-        if ( !$this->resource->is_type( 'variable' ) ) {
+        if ( $this->resource->is_type( 'simple' ) ) {
             return [
-                'min' => $formatter( $this->resource->get_price() ),
+                'min' => \pockets\woo::wc_price( $this->resource->get_price(), $args )
             ];
         }
 

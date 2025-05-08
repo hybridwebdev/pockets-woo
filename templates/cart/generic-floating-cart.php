@@ -6,10 +6,10 @@
 */
 
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
-    'total',
+    'subtotal',
     'items' => [
         'render:innerHTML' => [
-            'template' => "cart/floating-cart-item"
+            'template' => "cart/cart-item-compact"
         ]
     ]
 ] );
@@ -56,7 +56,12 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
             </div>
 
             <div class='p-2 bg-grey-800 text-white grid align-items-center columns-1 gap-1 fs-20'>
-                <div class='grid-info border-5 border-bottom border-grey-md pb-1'><span>Total</span> ${{ cart.results.total }}</div>
+                <div class='border-5 border-bottom border-grey-md pb-1'>
+                    <div class='grid-info gap-1'>
+                        <span>Subtotal</span> 
+                        {{ cart.results.subtotal }}
+                    </div>
+                </div>
                 <div class='grid columns-2 gap-1 text-center'>
                     <a href='/cart' class='justify-content-center btn btn-grey-700 text-white rounded-0 d-flex align-items-center gap-1'>
                         <i class='fa fa-shopping-cart'></i>

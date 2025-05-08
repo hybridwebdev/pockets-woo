@@ -34,8 +34,12 @@ class read extends \pockets\crud\resource_walker {
 
     }
 
-    function subtotal(){
-        return $this->resource->line_subtotal;
+    function subtotal( ?array $args ){
+        return \pockets\woo::wc_price( $this->resource->line_subtotal, $args );
+    }
+    
+    function total( ?array $args ){
+        return \pockets\woo::wc_price( $this->resource->line_total, $args );
     }
     
 }

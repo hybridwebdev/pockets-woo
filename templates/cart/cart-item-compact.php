@@ -17,7 +17,7 @@ $data = $this->read_resource( [
         'title',
         'product_type',
         'sku',
-         
+        'price'
     ],
     'subtotal',
 
@@ -63,24 +63,36 @@ if( is_wp_error( $data['image'] ) ) {
             ></i>
         </div>
 
-        <div>
-            <p class="product-sku"><?php echo $data['sku'] ?></p>
-        </div>
 
-        <div class='grid-info'>
-            <span>Qty:</span>
-            <pockets-fancy-input
-                class='fs-10'
-                :min='1'
-                value='<?= $data['quantity']?>' 
-                @update:value='quantity => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => $pockets.toast.success("Quantity updated") )'
-            >
-            </pockets-fancy-input>
-        </div>
-
-        <p class="product-price">
+       <div class='grid columns-1 gap-1'>
             
-        </p>
+            <?php if($data['sku']!='') {?>
+                <div>
+                    <p class="product-sku"><?php echo $data['sku'] ?></p>
+                </div>
+            <?php } ?>
+            
+            <div class="grid-info">
+                <span>Price</span>
+                <span><?= $data['price']?></span>
+            </div>
+            <div class="grid-info">
+                <span>Subtotal</span>
+                <span><?= $data['subtotal']?></span>
+            </div>
+            <div class='grid-info'>
+                <span>Qty:</span>
+                <pockets-fancy-input
+                    class='fs-10'
+                    :min='1'
+                    value='<?= $data['quantity']?>' 
+                    @update:value='quantity => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => $pockets.toast.success("Quantity updated") )'
+                >
+                </pockets-fancy-input>
+            </div>
+
+       </div>
+
         
     </div>
 

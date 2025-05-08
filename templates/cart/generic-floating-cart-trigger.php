@@ -7,7 +7,7 @@
 
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'item_count' => "",
-    "total" => ""
+    "total" => []
 ] );
 
 $cartID = 'floating-cart';

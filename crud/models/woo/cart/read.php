@@ -16,15 +16,15 @@ class read extends \pockets\crud\resource_walker {
         
     }
 
-    function subtotal(){
-        return $this->resource->get_subtotal();
+    function subtotal( ?array $args ){
+        return \pockets\woo::wc_price( $this->resource->get_subtotal('raw'), $args );
     }
     
-    function total(){
-        return $this->resource->get_total('raw');
+    function total( ?array $args ){
+        return \pockets\woo::wc_price( $this->resource->get_total('raw'), $args );
     }
 
-    function tax(){
+    function taxes() : array {
         return $this->resource->get_taxes();
     }
 
