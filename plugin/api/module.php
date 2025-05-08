@@ -44,7 +44,7 @@ namespace pockets {
                 'include-currency' => bool default true
             ]
         */
-        static function wc_price( float | int $price, ?array $args ) {
+        static function wc_price( string | float | int $price, ?array $args ) {
 
             $parsedArgs = wp_parse_args(
                 is_array( $args ) ? $args : [],
