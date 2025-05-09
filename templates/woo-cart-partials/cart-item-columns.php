@@ -43,35 +43,37 @@ if( is_wp_error( $data['image'] ) ) {
 }
 
 ?>
-<div class='cart-item-columns bg-white'>
+<div class='cart-item-column-layout bg-white'>
 
-    <div class='image-column p-half'>
-        <a href='<?= $data['link'] ?>' class='image-column'>
+    <div class='product-column product-column-image' label=' '>
+        <a href='<?= $data['link'] ?>' class='p-lg-half p-xs-0 d-block'>
             <img src='<?= $data['image']['url'] ?>' class='img-fluid'>
         </a>
     </div>
 
-    <div class='d-flex align-items-center product-column'>
+    <div class='product-column' label='Product'>
 
-
-
-        <a class='text-decoration-none' href='<?= $data['link'] ?>'>
-            <span class='text-grey-800 fw-8 fs-18'><?= $data['title'] ?></span>
-        </a>
-        
-        <i 
-            class='btn btn-outline-danger fa fa-trash-alt product-remove p-1 ms-auto border-0'
-            v-tooltip='"Remove item from cart"'
-            @click='$pockets.woo.cart.removeItem( "<?= $data['key'] ?>" ).then( e => $pockets.toast.success("Item removed") )'
-        ></i>
+        <div class='d-flex align-items-center' >
+    
+            <a class='text-decoration-none' href='<?= $data['link'] ?>'>
+                <span class='text-grey-800 fw-8 fs-18'><?= $data['title'] ?></span>
+            </a>
+            
+            <i 
+                class='btn btn-outline-danger fa fa-trash-alt product-remove p-1 ms-auto border-0'
+                v-tooltip='"Remove item from cart"'
+                @click='$pockets.woo.cart.removeItem( "<?= $data['key'] ?>" ).then( e => $pockets.toast.success("Item removed") )'
+            ></i>
+    
+        </div>
 
     </div>
     
-    <div class='price-column'>
+    <div class='product-column' label='Price'>
         <?= $data['price'] ?>
     </div>
 
-    <div class='quantity-column'>
+    <div class='product-column' label='Quantity'>
         <pockets-fancy-input
             class='fs-10'
             :min='1'
@@ -81,7 +83,7 @@ if( is_wp_error( $data['image'] ) ) {
         </pockets-fancy-input>
     </div>
 
-    <div class='subtotal-row'>
+    <div class='product-column' label='Subtotal'>
         <?= $data['subtotal'] ?>
     </div>
 

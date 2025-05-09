@@ -41,7 +41,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
 
             <div class='grid columns-1 gap-1' v-if='cart.results.items.length > 0'>
                 
-                <div class='cart-item-columns fw-8'>
+                <div class='cart-item-column-layout cart-item-column-layout-header fw-8'>
                     <div></div>
                     <div>Product</div>
                     <div>Price</div>
@@ -55,7 +55,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
 
         </div>
 
-        <div class='p-2 bg-grey-800 text-white grid align-items-center columns-1 gap-1 fs-20 col-6 ms-auto'>
+        <div class='p-2 bg-grey-800 text-white grid align-items-center columns-1 gap-1 fs-20 col-xs-12 col-lg-6 ms-auto'>
             <div class='border-5 border-bottom border-grey-md pb-1'>
                 <div class='grid-info-160 gap-1'>
                     <span>Subtotal</span> 
