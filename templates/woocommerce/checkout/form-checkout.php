@@ -34,7 +34,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		
 		name="checkout" 
 		method="post" 
-		class="checkout woocommerce-checkout grid columns-1 gap-2" 
+		class="checkout woocommerce-checkout grid columns-lg-2 columns-xs-1 gap-lg-4 gap-xs-2" 
 		action="<?php echo esc_url( wc_get_checkout_url() ); ?>" 
 		enctype="multipart/form-data" 
 		aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>"
@@ -43,15 +43,11 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
-			<div class="col2-set" id="customer_details">
+			<div class="grid columns-1 gap-1" id="customer_details">
 
-				<div class="col-1">
-					<?php do_action( 'woocommerce_checkout_billing' ); ?>
-				</div>
+				<?php do_action( 'woocommerce_checkout_billing' ); ?>
 
-				<div class="col-2">
-					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-				</div>
+				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
 
 			</div>
 
@@ -62,14 +58,16 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		<div>
 			<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 			
-			<h3 id="order_review_heading">
-				<?php esc_html_e( 'Your order', 'woocommerce' ); ?>
-			</h3>
-			
-			<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
-	
-			<div id="order_review" class="woocommerce-checkout-review-order">
-				<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+			<div class='position-sticky' style='top: 40px'>
+				<h3 id="order_review_heading">
+					<?php esc_html_e( 'Your order', 'woocommerce' ); ?>
+				</h3>
+				
+				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+		
+				<div id="order_review" class="woocommerce-checkout-review-order">
+					<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+				</div>
 			</div>
 	
 			<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
