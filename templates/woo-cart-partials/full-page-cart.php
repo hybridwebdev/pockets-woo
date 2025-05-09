@@ -34,9 +34,9 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
         <div 
             v-if='cart.results.items'
         >
-            <div v-if='cart.results.items.length == 0' class='grid columns-1 gap-1 text-center'>
+            <div v-if='cart.results.items.length == 0' class='grid columns-1 gap-1 text-center p-4 bg-white'>
                 <p>There are no items in your cart.</p>
-                <a href='/shop' class='btn btn-accent-dk px-4 p-1 mx-auto'>View Products</a>
+                <a href='/shop' class='btn btn-outline-accent-dk px-4 p-1 mx-auto'>View Products</a>
             </div>
 
             <div class='grid columns-1 gap-1' v-if='cart.results.items.length > 0'>
