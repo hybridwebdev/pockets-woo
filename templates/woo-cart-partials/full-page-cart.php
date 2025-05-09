@@ -28,7 +28,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     <div 
         class='grid columns-1 gap-1 loading-container'
         style='grid-template-rows: auto 1fr auto;'
-        :loading='cart.api.busy'
+        :loading='cart.api.busy || cart.busy'
     >
          
         <div 
