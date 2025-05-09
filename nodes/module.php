@@ -7,9 +7,8 @@ class module {
 
     function __construct(){
         
-        floating_cart\trigger::init();
-        floating_cart\cart_container::init();
-        product_template_loader\node::init();
+        product_partials_loader\node::init();
+        cart_partials_loader\node::init();
         
     }
 

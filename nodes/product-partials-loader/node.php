@@ -1,11 +1,11 @@
 <?php 
-namespace pockets_woo\nodes\product_template_loader;
+namespace pockets_woo\nodes\product_partials_loader;
 
 class node extends \pockets_node_tree\nodes\template_loader\node {
 
     public $edit_fields = [
         [
-            'ID'=> "woo-product-template-loader-settings",
+            'ID'=> "woo-product-partials-loader-settings",
             'content'=> [ 
                 'template' => 'pockets-node-tree/nodes/template-loader/fields/template-selector',
                 'static_template_type' => "woo-product-template"
@@ -20,7 +20,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
             "title" => "Woo Product Templates",
             'group' => "Woocommerce",
             "fields" => [ 
-                'base-attributes', 'el-selector', 'woo-product-template-loader-settings', 'data', 'style', 'bootstrap-styling' 
+                'base-attributes', 'el-selector', 'woo-product-partials-loader-settings', 'data', 'style', 'bootstrap-styling' 
             ],
             
             "elTypes" => [ 
@@ -37,7 +37,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
                 "props" => [
                     "class" => "col-12",
                 ],
-                "schema" => "woo-product-template-loader"
+                "schema" => "woo-product-partials-loader"
             ]
 
         ];

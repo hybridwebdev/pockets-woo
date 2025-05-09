@@ -1,9 +1,10 @@
 <?php
 
 /**
-    Template Name: Woo Generic Floating Cart Trigger
-    Template Type: static-template
+    Template Name: Generic Floating Cart Trigger
+    Template Type: woo-cart-template
 */
+
 
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'item_count' => "",

@@ -1,8 +1,8 @@
 <?php
 
 /**
-    Template Name: Woo Full Page Cart
-    Template Type: static-template
+    Template Name: Full Page Cart
+    Template Type: woo-cart-template
 */
 
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
@@ -10,7 +10,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'total',
     'items' => [
         'render:innerHTML' => [
-            'template' => "cart/cart-item-columns"
+            'template' => "woo-cart-partials/cart-item-columns"
         ]
     ]
 ] );

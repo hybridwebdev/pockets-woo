@@ -1,15 +1,15 @@
 <?php
 
 /**
-    Template Name: Woo Generic Floating Cart
-    Template Type: static-template
+    Template Name: Generic Floating Cart
+    Template Type: woo-cart-template
 */
 
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'subtotal',
     'items' => [
         'render:innerHTML' => [
-            'template' => "cart/cart-item-compact"
+            'template' => "woo-cart-partials/cart-item-compact"
         ]
     ]
 ] );
