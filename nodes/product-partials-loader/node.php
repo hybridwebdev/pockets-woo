@@ -17,7 +17,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
     public function getSchema(){
 
         return [
-            "title" => "Woo Product Templates",
+            "title" => "Product Templates",
             'group' => "Woocommerce",
             "fields" => [ 
                 'base-attributes', 'el-selector', 'woo-product-partials-loader-settings', 'data', 'style', 'bootstrap-styling' 

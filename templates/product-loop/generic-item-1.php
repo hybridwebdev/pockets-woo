@@ -1,8 +1,8 @@
 <?php 
 
 /**
-* Template Name: Generic Product Item 1
-* Template Type: post
+    Template Name: Generic Product Item 1
+    Template Type: post
 */
 
 $data = $this->read_resource( [
