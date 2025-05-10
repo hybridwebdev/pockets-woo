@@ -95,8 +95,11 @@ $renderPrice = fn() => sprintf(
                                 console.log(e );
                                 state.item.quantity = 1;
                                 state.busy = false;
-                                if( e.addItem === true ) {
-                                    $pockets.toast.success("Item Added");
+                                if( e.addItem !== false ) {
+                                    $pockets.toast.success("Item added to cart");
+                                }
+                                if( e.addItem === false ) {
+                                    $pockets.toast.error("Item could not be added");
                                 }
                             } )
                         '
