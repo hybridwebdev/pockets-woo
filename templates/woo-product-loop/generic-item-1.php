@@ -74,7 +74,7 @@ $renderPrice = fn() => sprintf(
                 }
             ?>
 
-            <?php if( $data['product_type'] =='simple') { ?>
+            <?php if( $data['product_type'] =='simple' ) { ?>
                                     
                 <div 
                     class='d-flex gap-1' 
