@@ -35,7 +35,7 @@ $renderPrice = fn() => sprintf(
 
     <div class='d-flex align-items-center justify-content-center'>
         <a href="<?= $data['link'] ?>" class=''>
-            <img src='<?= $data['image']['url']?>'>
+            <img class='img-fluid' src='<?= $data['image']['url']?>'>
         </a>
     </div>
 
