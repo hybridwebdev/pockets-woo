@@ -95,7 +95,7 @@ $renderPrice = fn() => sprintf(
                                 console.log(e );
                                 state.item.quantity = 1;
                                 state.busy = false;
-                                if( e ) {
+                                if( e.addItem === true ) {
                                     $pockets.toast.success("Item Added");
                                 }
                             } )
