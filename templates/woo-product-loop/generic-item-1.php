@@ -94,7 +94,9 @@ $renderPrice = fn() => sprintf(
                             $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
                                 state.item.quantity = 1;
                                 state.busy = false;
-                                $pockets.toast.success("Item Added");
+                                if( e ) {
+                                    $pockets.toast.success("Item Added");
+                                }
                             } )
                         '
                     >
