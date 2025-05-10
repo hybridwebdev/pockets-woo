@@ -92,6 +92,7 @@ $renderPrice = fn() => sprintf(
                         @click='
                             state.busy = true;
                             $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
+                                console.log(e );
                                 state.item.quantity = 1;
                                 state.busy = false;
                                 if( e ) {
