@@ -34,41 +34,44 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		
 		name="checkout" 
 		method="post" 
-		class="checkout woocommerce-checkout grid columns-lg-2 columns-xs-1 gap-lg-4 gap-xs-2 align-items-start" 
+		class="checkout woocommerce-checkout grid columns-1 gap-2" 
 		action="<?php echo esc_url( wc_get_checkout_url() ); ?>" 
 		enctype="multipart/form-data" 
 		aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>"
 	>
-		<?php if ( $checkout->get_checkout_fields() ) : ?>
-
-			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
-
-			<div class="grid columns-1 gap-1" id="customer_details">
-
-				<?php do_action( 'woocommerce_checkout_billing' ); ?>
-
-				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-
-			</div>
-
-			<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
-
-		<?php endif; ?>
+		<div class='grid columns-lg-2 columns-xs-1 gap-lg-4 gap-xs-2 align-items-start'>
 		
-		<div class='position-sticky' style='top: 20px'>
-			<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
-			
-				<h3 id="order_review_heading">
-					<?php esc_html_e( 'Your order', 'woocommerce' ); ?>
-				</h3>
-				
-				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
-		
-				<div id="order_review" class="woocommerce-checkout-review-order">
-					<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+			<?php if ( $checkout->get_checkout_fields() ) : ?>
+	
+				<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
+	
+				<div class="grid columns-1 gap-1" id="customer_details">
+	
+					<?php do_action( 'woocommerce_checkout_billing' ); ?>
+	
+					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
+	
 				</div>
 	
-			<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+				<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
+	
+			<?php endif; ?>
+			
+			<div class='position-sticky' style='top: 20px'>
+				<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
+				
+					<h3 id="order_review_heading">
+						<?php esc_html_e( 'Your order', 'woocommerce' ); ?>
+					</h3>
+					
+					<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+			
+					<div id="order_review" class="woocommerce-checkout-review-order">
+						<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+					</div>
+		
+				<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+			</div>
 		</div>
 
 	</form>
