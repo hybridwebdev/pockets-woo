@@ -43,24 +43,26 @@ if( is_wp_error( $data['image'] ) ) {
 }
 
 ?>
-<div class='d-flex gap-1 align-items-start pe-2 bg-white'>
+<div class='d-flex gap-1 align-items-start pe-2 pb-2 bg-white'>
 
     <div class='width: 100px'>
-        <a href='<?= $data['link'] ?>' class='p-half d-block'>
+        <a href='<?= $data['link'] ?>' class='p-1 d-block'>
             <img src='<?= $data['image']['url'] ?>' class='img-fluid' style='max-width: 100px'>
         </a>
     </div>
 
-    <div class='floating-cart-item-contents'>
+    <div class='cart-item-compact-contents pt-1'>
     
         <div class='d-flex align-items-center'>
             <a class='text-decoration-none' href='<?= $data['link'] ?>'>
                 <span class='text-grey-800 fw-8 fs-18'><?= $data['title'] ?></span>
             </a>
-            <i 
-                class='text-danger fa fa-trash-alt product-remove ms-auto p-2 pe-0' role='button'
+            <button 
+                class='product-remove ms-auto p-1 btn btn-outline-danger border-0'
                 @click='$pockets.woo.cart.removeItem( "<?= $data['key'] ?>" ).then( e => $pockets.toast.success("Item removed") )'
-            ></i>
+            >
+                <i class='fa fa-trash-alt'></i>
+            </button>
         </div>
 
 

@@ -29,12 +29,13 @@ $renderPrice = fn() => sprintf(
         : sprintf( "%s", $data['price']['min'] ) 
 );
 
+$addItem = json_encode( $data['addItem'] );
 
 ?>
 <div class='grid-card-4 bg-white gap-1 product p-4'>
 
     <div class='d-flex align-items-center justify-content-center'>
-        <a href="<?= $data['link'] ?>" class=''>
+        <a href="<?= $data['link'] ?>">
             <img class='img-fluid' src='<?= $data['image']['url']?>'>
         </a>
     </div>
@@ -47,11 +48,7 @@ $renderPrice = fn() => sprintf(
     </a>
 
     <pockets-local-state 
-        :item='<?= json_encode( [
-            'product_id' => $data['ID'],
-            'variation_id' => 0,
-            'quantity' => 1
-        ] ) ?>'
+        :item='<?= $addItem ?>'
         :busy='false'
         #default='{ state }'
     >
@@ -92,7 +89,6 @@ $renderPrice = fn() => sprintf(
                         @click='
                             state.busy = true;
                             $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
-                                console.log(e );
                                 state.item.quantity = 1;
                                 state.busy = false;
                                 if( e.addItem !== false ) {
@@ -104,7 +100,8 @@ $renderPrice = fn() => sprintf(
                             } )
                         '
                     >
-                        <i class='fa fa-shopping-cart'></i>Add to cart
+                        <i class='fa fa-shopping-cart'></i>
+                        Add to cart
                     </button>
                 </div>
 
