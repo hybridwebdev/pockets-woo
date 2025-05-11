@@ -21,9 +21,7 @@ if ( $thumbnail_id ) {
 ?>
 <div class='term-loop-item'>
     <div class='grid-info-100'>
-        <a href='<?= $data['link']?>'>
-            <img src='<?= $image_url?>' class='img-fluid'>
-        </a>
+        <img src='<?= $image_url?>'>
         <a href='<?= $data['link']?>'>
             <?= $data['name'] ?>
         </a>
