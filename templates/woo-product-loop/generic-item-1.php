@@ -26,7 +26,7 @@ $renderPrice = fn() => sprintf(
     T,
     ( $data['price']['max'] ?? false) 
         ? sprintf( "%s to %s", $data['price']['min'], $data['price']['max'] ) 
-        : sprintf( "%s", $data['price']['min'] ?? 0 ) 
+        : sprintf( "%s", $data['price']['min'] ?? "" ) 
 );
 
 $addItem = json_encode( $data['addItem'] );
