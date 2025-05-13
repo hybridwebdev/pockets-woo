@@ -36,7 +36,7 @@ $addItem = json_encode( $data['addItem'] );
 
     <div class='d-flex align-items-center justify-content-center'>
         <a href="<?= $data['link'] ?>">
-            <img class='img-fluid' src='<?= $data['image']['url']?>'>
+            <img class='img-fluid img-thumbnail' src='<?= $data['image']['url']?>'>
         </a>
     </div>
 
@@ -64,7 +64,7 @@ $addItem = json_encode( $data['addItem'] );
                 <div>
                     <a 
                         href="<?php echo esc_url($data['link']); ?>" 
-                        class='fs-14 btn btn-grey-800 text-white d-block text-center text-uppercase view-options p-1 rounded-0 d-flex gap-1 align-items-center justify-content-center'
+                        class='fs-14 btn btn-grey-800 text-white d-block text-center text-uppercase p-1 rounded-0 d-flex gap-1 align-items-center justify-content-center'
                     ><i class='fa fa-cog'></i>View options</a>
                 </div>
             <?php
