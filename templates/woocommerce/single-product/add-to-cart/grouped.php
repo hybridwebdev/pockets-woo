@@ -16,66 +16,85 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 $renderer = new class {
 
-	public function quantity( $grouped_product_child ) {
+	public function quantity( $product ) {
 
 		ob_start();
 
-		if ( ! $grouped_product_child->is_purchasable() || $grouped_product_child->has_options() || ! $grouped_product_child->is_in_stock() ) {
-			
+		if ( ! $product->is_purchasable() || $product->has_options() || ! $product->is_in_stock() ) {
 			woocommerce_template_loop_add_to_cart();
-
-		} elseif ( $grouped_product_child->is_sold_individually() ) {
-
-			sprintf(
-				<<<HTML
-					<input name='' />
-					<label></label>
-				HTML
-			);
-			echo '<input type="checkbox" name="' 
-			. esc_attr( 'quantity[' . $grouped_product_child->get_id() . ']' ) 
-			. '" value="1" class="wc-grouped-product-add-to-cart-checkbox" id="' . esc_attr( 'quantity-' . $grouped_product_child->get_id() ) . '" />';
-			echo '<label for="' . esc_attr( 'quantity-' . $grouped_product_child->get_id() ) . '" class="screen-reader-text">' . esc_html__( 'Buy one of this item', 'woocommerce' ) . '</label>';
-
-		} else {
-
-			do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-			printf(
-				<<<HTML
-					<pockets-fancy-input
-						name='%s'
-						:min='%s'
-						:max='%s'					
-						:value='%d'
-					>
-					</pockets-fancy-input>
-				HTML,
-				'quantity[' . $grouped_product_child->get_id() . ']',
-				apply_filters( 'woocommerce_quantity_input_min', 0, $grouped_product_child ),
-				apply_filters( 'woocommerce_quantity_input_max', $grouped_product_child->get_max_purchase_quantity(), $grouped_product_child ),
-				isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : ''
-			);
-
-			do_action( 'woocommerce_after_add_to_cart_quantity' );
-
+			return ob_get_clean();
 		}
 
+		if ( $product->is_sold_individually() ) {
+
+			printf(
+				<<<'HTML'
+					<label class='d-flex align-items-center gap-2' role='button'>
+						<input 
+							class='wc-grouped-product-add-to-cart-checkbox m-0 form-check-input fs-26 rounded-0'
+							id='quantity-%1$s'
+							name='quantity[%1$s]' 
+							type='checkbox'
+							value='1'
+						/>
+						Add Item
+					</label>
+				HTML,
+				esc_attr( $product->get_id() )
+			);
+
+			printf(
+				<<<'HTML'
+					<label 
+						class='screen-reader-text'
+						for='quantity-%1$s'
+					>
+						%2$s
+					</label>
+				HTML,
+				esc_attr( $product->get_id() ),
+				esc_html__( 'Buy one of this item', 'woocommerce' )
+			);
+
+			return ob_get_clean();
+			
+		}
+
+		do_action( 'woocommerce_before_add_to_cart_quantity' );
+
+			$id = $product->get_id();
+
+			printf(
+				<<<'HTML'
+					<pockets-fancy-input
+						name='quantity[%1$s]'
+						:min='%2$s'
+						:max='%3$s'					
+						:value='%4$s'
+					></pockets-fancy-input>
+				HTML,
+				$id,
+				apply_filters( 'woocommerce_quantity_input_min', 0, $product ),
+				apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+				isset( $_POST['quantity'][ $id ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $id ] ) ) ) : 1
+			);
+
+		do_action( 'woocommerce_after_add_to_cart_quantity' );
+
 		return ob_get_clean();
-		
+
 	}
 
-	public function label( $grouped_product_child ) {
+	public function label( $product ) {
 
 		$a = fn() => sprintf(
 			<<<HTML
-				<a href='%s'>%s</a>
+				<a href='%s' class='fs-20 text-primary-dk fw-8'>%s</a>
 			HTML,
-			esc_url( apply_filters( 'woocommerce_grouped_product_list_link', $grouped_product_child->get_permalink(), $grouped_product_child->get_id() ) ),
-			$grouped_product_child->get_name() 
+			esc_url( apply_filters( 'woocommerce_grouped_product_list_link', $product->get_permalink(), $product->get_id() ) ),
+			$product->get_name() 
 		);
 
 		return sprintf(
@@ -84,19 +103,20 @@ $renderer = new class {
 				%s
 				</label>
 			HTML,
-			esc_attr( $grouped_product_child->get_id() ),
-			$grouped_product_child->is_visible()
+			esc_attr( $product->get_id() ),
+			$product->is_visible()
 				? $a()
-				: $grouped_product_child->get_name()
+				: $product->get_name()
 		);
 		
 	}
 
-	public function price( $grouped_product_child ) {
+	public function price( $product ) {
 		return sprintf(
-			"%s%s",
-			$grouped_product_child->get_price_html(), 
-			wc_get_stock_html( $grouped_product_child )
+			"<label for='quantity-%s'>%s%s</label>",
+			esc_attr( $product->get_id() ),
+			$product->get_price_html(), 
+			wc_get_stock_html( $product )
 		);
 	}
 
@@ -124,12 +144,18 @@ $formAction = esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $pr
 
 ?>
 <form 
-	class="cart grouped_form" 
+	class="cart grouped_form grid columns-1 gap-2 loading-container" 
 	action="<?php echo $formAction ?>" 
 	method="post" 
 	enctype='multipart/form-data'
+	v-pockets-woo-form-handler='{
+		action: "cart.addGrouped",
+		error: "Item could not be added.",
+		success: "Item added to cart."
+	}'
+	:loading='$pockets.woo.cart.busy'
 >
-	<div class="woocommerce-grouped-product-list group_table">
+	<div class="woocommerce-grouped-product-list-table">
 		<?php
 
 		do_action( 'woocommerce_grouped_product_list_before', $grouped_product_columns, $quantites_required, $product );
@@ -205,31 +231,35 @@ $formAction = esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $pr
 	</div>
 
 	<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
-
-	<?php if ( $quantites_required && $show_add_to_cart_button ) {  
+	<input type="hidden" name="product-id" value="<?php echo esc_attr( $product->get_id() ); ?>" />
 	
-		do_action( 'woocommerce_before_add_to_cart_button' ); 
-
-		printf(
-			<<<HTML
-				<button
-					type='submit'
-					class='single_add_to_cart_button btn btn-outline-confirm %s'
-				>
-				%s
-				</button>
-			HTML,
-			esc_attr( 
-				wc_wp_theme_get_element_class_name( 'button' ) 
-					? ' ' . wc_wp_theme_get_element_class_name( 'button' ) 
-					: '' 
-			),
-			esc_html( $product->single_add_to_cart_text() )
-		);
+	<div class='d-flex'>
+		<?php if ( $quantites_required && $show_add_to_cart_button ) {  
+		
+			do_action( 'woocommerce_before_add_to_cart_button' ); 
 	
-		do_action( 'woocommerce_after_add_to_cart_button' ); 
-	
-	} ?>
+			printf(
+				<<<HTML
+					<button
+						type='submit'
+						class='single_add_to_cart_button btn btn-outline-confirm %s text-uppercase d-flex align-items-center gap-1 justify-content-center ms-auto px-2 p-1'
+					>
+					<i class='fa fa-shopping-cart'></i>
+					%s
+					</button>
+				HTML,
+				esc_attr( 
+					wc_wp_theme_get_element_class_name( 'button' ) 
+						? ' ' . wc_wp_theme_get_element_class_name( 'button' ) 
+						: '' 
+				),
+				esc_html( $product->single_add_to_cart_text() )
+			);
+		
+			do_action( 'woocommerce_after_add_to_cart_button' ); 
+		
+		} ?>
+	</div>
 
 </form>
 
