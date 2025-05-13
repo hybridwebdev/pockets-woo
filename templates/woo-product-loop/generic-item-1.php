@@ -59,7 +59,7 @@ $addItem = json_encode( $data['addItem'] );
             </span>
             
             <?php 
-                if( $data['product_type'] == 'variable' ) {
+                if( in_array( needle: $data['product_type'], haystack: [ 'variable', 'grouped', 'external' ] ) ) {
             ?>
                 <div>
                     <a 

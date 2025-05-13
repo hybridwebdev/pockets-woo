@@ -31,7 +31,7 @@ $productData = $this->read_resource( [
 ] );
 
 
-if( $productData['product_type'] == "simple" ) {
+if( in_array( needle: $productData['product_type'], haystack: [ 'simple', 'external', 'grouped' ] ) ) {
 
     return printf(
         <<<'HTML'
@@ -46,7 +46,7 @@ if( $productData['product_type'] == "simple" ) {
 
 if( $productData['product_type'] == "variable" ) {
 
-    printf(
+    return printf(
         <<<'HTML'
             <img 
                 v-if='$pockets.woo.variation_form.selected && $pockets.woo.variation_form.selected.image.src!=""' 

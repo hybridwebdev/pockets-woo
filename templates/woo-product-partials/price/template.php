@@ -11,29 +11,29 @@ $productData = $this->read_resource( [
     "price_range:price"
 ] );
 
- 
 $renderPrice = fn() => sprintf(
     <<<T
     %s
     T,
-    ( $productData['price']['max'] ?? false) 
+    ( $productData['price']['max'] ?? false ) 
         ? sprintf( "%s to %s", $productData['price']['min'], $productData['price']['max'] ) 
         : sprintf( "%s", $productData['price']['min'] ) 
 );
 
-if( $productData['product_type'] == "simple" ) {
-    $price = $this->read_resource(['price'])['price'];
-    printf(
+if( in_array( needle: $productData['product_type'], haystack: [ 'simple', 'external', 'grouped' ] ) ) {
+    
+    return printf(
         <<<'HTML'
             %s
         HTML,
         $renderPrice()
     );
-}
 
+}
+ 
 if( $productData['product_type'] == "variable" ) {
 
-    printf(
+    return printf(
         <<<'HTML'
             <div 
                 v-if='$pockets.woo.variation_form.selected' 

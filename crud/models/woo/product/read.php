@@ -66,16 +66,37 @@ class read extends \pockets\crud\resource_walker {
     function price_range( ?array $args = [] ){
          
         if ( $this->resource->is_type( 'variable' ) ) {
+
             return [
                 'min' => \pockets\woo::wc_price( $this->resource->get_variation_price( 'min' ), $args ),
                 'max' => \pockets\woo::wc_price( $this->resource->get_variation_price( 'max' ), $args )
             ];
+
         } 
         
-        if ( $this->resource->is_type( 'simple' ) ) {
+        if ( in_array( needle: $this->resource->get_type(), haystack: [ 'simple', 'external'] ) ) {
+
             return [
                 'min' => \pockets\woo::wc_price( $this->resource->get_price(), $args )
             ];
+
+        }
+
+        if ( $this->resource->is_type( 'grouped' ) ) {
+            //
+            $prices = array_map(
+                array: $this->resource->get_children(),
+                callback: fn( int $ID ) => wc_get_product( $ID )->get_price()
+            );
+            // Calculate the min and max prices
+            $min_price = min( $prices );
+            $max_price = max( $prices );
+            
+            return [
+                'min' => \pockets\woo::wc_price( $min_price, $args ),
+                'max' => \pockets\woo::wc_price( $max_price, $args )
+            ];
+
         }
 
     }
