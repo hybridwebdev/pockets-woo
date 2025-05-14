@@ -87,22 +87,21 @@ $addItem = json_encode( $data['addItem'] );
                         type="button"
                         class='btn btn-outline-confirm text-uppercase fs-14 add-to-cart rounded-0 flex-grow-1 d-flex align-items-center gap-1 justify-content-center'
                         @click='
-
                             state.busy = true;
-                            $pockets.woo.cart.addItem( { addItem: state.item } ).then( e => {
-                                state.item.quantity = 1;
+                            $pockets.woo.cart.addItem( { addItem: state.item } )
+                            .then( e => {
                                 if( e.addItem !== false ) {
                                     $pockets.toast.success("Item added to cart");
                                 }
                                 if( e.addItem === false ) {
                                     $pockets.toast.error("Item could not be added");
                                 }
-                            } ).catch( e => {
-                                $pockets.toast.error( e.message );
-                            } ).finally( () => {
+                            } )
+                            .catch( e => e.toast() )
+                            .finally( () => {
                                 state.busy = false
+                                state.item.quantity = 1;
                             })
-
                         '
                     >
                         <i class='fa fa-shopping-cart'></i>
