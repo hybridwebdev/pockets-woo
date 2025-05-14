@@ -37,7 +37,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	class="d-flex gap-2 loading-container" 
 	method="post" 
 	v-pockets-woo-form-handler='{
-		action: "cart.addItem",
+		action: "cart.addSimple",
 		error: "Item could not be added.",
 		success: "Item added to cart."
 	}'
