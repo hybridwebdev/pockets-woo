@@ -149,7 +149,7 @@ $formAction = esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $pr
 	method="post" 
 	enctype='multipart/form-data'
 	v-pockets-woo-form-handler='{
-		action: "cart.addGrouped",
+		action: "cart.add.grouped",
 		error: "Item could not be added.",
 		success: "Item added to cart."
 	}'
@@ -231,7 +231,7 @@ $formAction = esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $pr
 	</div>
 
 	<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
-	<input type="hidden" name="product-id" value="<?php echo esc_attr( $product->get_id() ); ?>" />
+	<input type="hidden" name="product_id" value="<?php echo esc_attr( $product->get_id() ); ?>" />
 	
 	<div class='d-flex'>
 		<?php if ( $quantites_required && $show_add_to_cart_button ) {  
