@@ -59,7 +59,11 @@ if( is_wp_error( $data['image'] ) ) {
             </a>
             <button 
                 class='product-remove ms-auto p-1 btn btn-outline-danger border-0'
-                @click='$pockets.woo.cart.removeItem( "<?= $data['key'] ?>" ).then( e => $pockets.toast.success("Item removed") )'
+                @click='e => {
+                    $pockets.woo.cart.removeItem( "<?= $data['key'] ?>" )
+                    .then( e => $pockets.toast.success("Item removed") )
+                    .catch( err => err.toast() )
+                }'
             >
                 <i class='fa fa-trash-alt'></i>
             </button>
@@ -88,7 +92,11 @@ if( is_wp_error( $data['image'] ) ) {
                     class='fs-10'
                     :min='1'
                     value='<?= $data['quantity']?>' 
-                    @update:value='quantity => $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity ).then( e => $pockets.toast.success("Quantity updated") )'
+                    @update:value='quantity => {
+                        $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity )
+                        .then( e => $pockets.toast.success("Quantity updated") )
+                        .catch( err => err.toast() )
+                    }'
                 >
                 </pockets-fancy-input>
             </div>
