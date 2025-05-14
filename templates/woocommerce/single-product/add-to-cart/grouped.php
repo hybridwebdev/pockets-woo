@@ -150,7 +150,6 @@ $formAction = esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $pr
 	enctype='multipart/form-data'
 	v-pockets-woo-form-handler='{
 		action: "cart.add.grouped",
-		error: "Item could not be added.",
 		success: "Item added to cart."
 	}'
 	:loading='$pockets.woo.cart.busy'
