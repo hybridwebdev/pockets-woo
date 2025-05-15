@@ -9,6 +9,7 @@ class module {
         
         product_partials_loader\node::init();
         cart_partials_loader\node::init();
+        shop_partials_loader\node::init();
         
     }
 
