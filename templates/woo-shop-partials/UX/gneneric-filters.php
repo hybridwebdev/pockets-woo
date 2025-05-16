@@ -27,33 +27,54 @@ $orderBy = [
 ];
 
 ?>
-<pockets-route-state #default='{ location, search: params }'>
-    <div class='grid columns-3 gap-1 pb-10'>
-        {{ params }}
-        <label>
-            <span>Order BY</span>
-            <select class='form-control' v-model='params.orderby'>
-                <option :value='undefined'>None</option>
-                <?php
-                    array_map(
-                        array: $orderBy,
-                        callback: fn( $option ) => printf(
-                            <<<HTML
-                                <option value='%s'>%s</option>
-                            HTML,
-                            $option['value'],
-                            $option['title']
-                        )
-                    );
-                ?>       
-            </select>
-        </label>
+<pockets-route-state #default='{ searchRef, search }'>
+    <pockets-temp-state
+        v-model:state="search"
+        #default="{ state:params, update }"
+    >
+        <form 
+            @submit.prevent='() => {
+                Object.assign(search, params)
+            }'
+        >
+            <div class='grid columns-3 gap-1 pb-10'>
+                
+                <label class='grid-card-2'>
+                    <span>Order</span>
+                    <select class='form-control' v-model='params.orderby'>
+                        <option :value='undefined'>None</option>
+                        <?php
+                            array_map(
+                                array: $orderBy,
+                                callback: fn( $option ) => printf(
+                                    <<<HTML
+                                        <option value='%s'>%s</option>
+                                    HTML,
+                                    $option['value'],
+                                    $option['title']
+                                )
+                            );
+                        ?>       
+                    </select>
+                </label>
 
-        <label>
-            <span>Search</span>
-            <input  class='form-control' v-model='params.s'>
-        </label>
-
-    </div>
-
+                <label class='grid-card-2'>
+                    <span>Search</span>
+                    <input  class='form-control' v-model='params.s'>
+                </label>
+                <label class='grid-card-2'>
+                    <span></span>
+                    <button 
+                        class='btn btn-accent-dk p-1'
+                        type='submit'
+                    >
+                        SEARCH
+                    </button>
+                </label>
+            </div>
+            <div>
+                {{ params }}
+            </div>
+        </form>
+    </pockets-temp-state>
 </pockets-route-state>
