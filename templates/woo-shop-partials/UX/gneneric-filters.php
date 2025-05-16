@@ -25,8 +25,8 @@ $orderBy = [
 ?>
 <pockets-route-state #default='{ location, search }'>
     <div class='grid columns-3 gap-1 pb-10'>
-        <a href='http://dev.pockets.com/shop/?orderby=price-ASC'>Price ASC</a>
-        <a href='http://dev.pockets.com/shop/?orderby=price-DESC'>Price DESC</a>
+        <a href='?orderby=price-ASC'>Price ASC</a>
+        <a href='?orderby=price-DESC'>Price DESC</a>
         <label>
             <span>Order BY</span>
             <select class='form-control' v-model='search.orderby'>
