@@ -41,7 +41,9 @@ $orderBy = [
                 
                 <label class='grid-card-2'>
                     <span>Order</span>
-                    <select class='form-control' v-model='params.orderby'>
+                    <select class='form-control' v-model='params.orderby' @change='() => {
+                            Object.assign(search, params)
+                        }'>
                         <option :value='undefined'>None</option>
                         <?php
                             array_map(
