@@ -5,6 +5,10 @@
 */
 $orderBy = [
     [
+        'value' => 'id',
+        'title' => "ID"
+    ],
+    [
         'value' => "price-asc",
         'title' => "Price Asc"
     ],
@@ -23,11 +27,12 @@ $orderBy = [
 ];
 
 ?>
-<pockets-route-state #default='{ location, search }'>
+<pockets-route-state #default='{ location, search: params }'>
     <div class='grid columns-3 gap-1 pb-10'>
+        {{ params }}
         <label>
             <span>Order BY</span>
-            <select class='form-control' v-model='search.orderby'>
+            <select class='form-control' v-model='params.orderby'>
                 <option :value='undefined'>None</option>
                 <?php
                     array_map(
@@ -46,7 +51,7 @@ $orderBy = [
 
         <label>
             <span>Search</span>
-            <input  class='form-control' v-model='search.s'>
+            <input  class='form-control' v-model='params.search'>
         </label>
 
     </div>
