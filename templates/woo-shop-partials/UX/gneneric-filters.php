@@ -30,14 +30,14 @@ $orderBy = [
 <pockets-route-state #default='{ searchRef, search }'>
     <pockets-temp-state
         v-model:state="search"
-        #default="{ state:params, update }"
+        #default="{ state:params, update, hasChanges }"
     >
         <form 
             @submit.prevent='() => {
                 Object.assign(search, params)
             }'
         >
-            <div class='grid columns-3 gap-1 pb-10'>
+            <div class='grid columns-3 gap-1'>
                 
                 <label class='grid-card-2'>
                     <span>Order</span>
@@ -67,13 +67,11 @@ $orderBy = [
                     <button 
                         class='btn btn-accent-dk p-1'
                         type='submit'
+                        :disabled='!hasChanges'
                     >
                         SEARCH
                     </button>
                 </label>
-            </div>
-            <div>
-                {{ params }}
             </div>
         </form>
     </pockets-temp-state>
