@@ -51,7 +51,7 @@ $orderBy = [
 
         <label>
             <span>Search</span>
-            <input  class='form-control' v-model='params.search'>
+            <input  class='form-control' v-model='params.s'>
         </label>
 
     </div>
