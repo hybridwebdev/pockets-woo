@@ -5,34 +5,52 @@
 */
 $orderBy = [
     [
-        'value' => "price",
-        'title' => "Price low - high"
+        'value' => "price-asc",
+        'title' => "Price Asc"
     ],
     [
         'value' => "price-desc",
-        'title' => "Price High - low"
+        'title' => "Price Desc"
+    ],
+    [
+        'value' => "title-desc",
+        'title' => "Title Desc"
+    ],
+    [
+        'value' => "title-asc",
+        'title' => "Title"
     ],
 ];
 
 ?>
 <pockets-route-state #default='{ location, search }'>
-    <div>
-        <select class='form-control' v-model='search.orderby'>
-            <option :value='undefined' disabled>None</option>
-            <?php
-                array_map(
-                    array: $orderBy,
-                    callback: fn( $option ) => printf(
-                        <<<HTML
-                            <option value='%s'>%s</option>
-                        HTML,
-                        $option['value'],
-                        $option['title']
-                    )
-                );
-            ?>       
-        </select>
-        <input  class='form-control'>
-        <input v-model='search.s' class='form-control'>
+    <div class='grid columns-3 gap-1 pb-10'>
+        <a href='http://dev.pockets.com/shop/?orderby=price-ASC'>Price ASC</a>
+        <a href='http://dev.pockets.com/shop/?orderby=price-DESC'>Price DESC</a>
+        <label>
+            <span>Order BY</span>
+            <select class='form-control' model='search.orderby'>
+                <option :value='undefined'>None</option>
+                <?php
+                    array_map(
+                        array: $orderBy,
+                        callback: fn( $option ) => printf(
+                            <<<HTML
+                                <option value='%s'>%s</option>
+                            HTML,
+                            $option['value'],
+                            $option['title']
+                        )
+                    );
+                ?>       
+            </select>
+        </label>
+
+        <!-- <label>
+            <span>Search</span>
+            <input  class='form-control' v-model='search.s'>
+        </label> -->
+
     </div>
+
 </pockets-route-state>
