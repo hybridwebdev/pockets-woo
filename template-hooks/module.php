@@ -15,31 +15,32 @@ class fix_woo_main_query {
         // remove_action( 'parse_request', [ WC()->query, 'parse_request' ], 0 );
 
 
-        add_filter( 'query_vars', function( $vars ){
-            $vars[] = 'orderby';
-            //$vars[] = 'order';
-            return $vars;
+        // add_filter( 'query_vars', function( $vars ){
+        //     $vars[] = 'orderby';
+        //     //$vars[] = 'order';
+        //     return $vars;
 
-        }, 100 );
+        // }, 100 );
 
         add_action('pre_get_posts', function( $query ){
+            if( \pockets::is_rest_request() && $query->is_main_query() ) {
+                //\pockets::dump( $query );
+                // echo "Pre_get_posts";
+                // \pockets::dump( [\pockets\queried_object\context::$simulatedUrl, get_query_var( 'orderby' )] );
+                // //\pockets::dump(get_query_var('orderby'));
 
-            if( \pockets::is_rest_request()  ) {
-                \pockets::dump( [\pockets\queried_object\context::$simulatedUrl, get_query_var( 'orderby' )] );
-                //\pockets::dump(get_query_var('orderby'));
+                // if( !$query->is_main_query() || !is_shop() ) {
+                //     return;
+                // }
+                // $args = $this->get_wp_query_vars_from_url( \pockets\queried_object\context::$simulatedUrl );
 
-                if( !$query->is_main_query() || !is_shop() ) {
-                    return;
-                }
-                $args = $this->get_wp_query_vars_from_url( \pockets\queried_object\context::$simulatedUrl );
-
-                if( $args['orderby']) {
-                    //$query->set( 'orderby', $args['orderby'] );
-                }
+                // if( $args['orderby']) {
+                //     //$query->set( 'orderby', $args['orderby'] );
+                // }
               
             }
 
-        }, 1 );
+        }, 11 );
 
     }
 

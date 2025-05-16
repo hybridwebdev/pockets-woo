@@ -29,7 +29,7 @@ $orderBy = [
         <a href='http://dev.pockets.com/shop/?orderby=price-DESC'>Price DESC</a>
         <label>
             <span>Order BY</span>
-            <select class='form-control' model='search.orderby'>
+            <select class='form-control' v-model='search.orderby'>
                 <option :value='undefined'>None</option>
                 <?php
                     array_map(
