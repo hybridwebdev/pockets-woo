@@ -21,6 +21,7 @@ printf(
             :query='%1$s'
             #default='cart'
             cart-id='%2$s'
+            v-cloak
         >
             <i 
                 @click='cart.api.toggle( cart.ID )' 
