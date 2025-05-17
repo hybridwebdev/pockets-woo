@@ -27,10 +27,12 @@ $orderBy = [
 ];
 
 ?>
-<pockets-route-state #default='{ searchRef, search }'>
+<pockets-route-state #default='{ query: search }'>
+    {{ search }}
     <pockets-temp-state
         v-model:state="search"
         #default="{ state:params, update, hasChanges }"
+        :key='Date.now()'
     >
         <form 
             @submit.prevent='() => {
@@ -76,5 +78,7 @@ $orderBy = [
                 </label>
             </div>
         </form>
+
     </pockets-temp-state>
+
 </pockets-route-state>
