@@ -27,25 +27,22 @@ $orderBy = [
 ];
 
 ?>
-<pockets-route-state #default='{ query }'>
+<pockets-route-state #default='{ query, setQuery }'>
 
     <pockets-temp-state
-        v-model:state="query"
+        :state="query"
         #default="{ state:params, update, hasChanges }"
         :key='query'
+        @update:state='setQuery'
     >
         <form 
-            @submit.prevent='() => {
-                Object.assign(query, params)
-            }'
+            @submit.prevent='update'
         >
             <div class='grid columns-3 gap-1'>
                 
                 <label class='grid-card-2'>
                     <span>Order</span>
-                    <select class='form-control' v-model='params.orderby' @change='() => {
-                            Object.assign(query, params)
-                        }'>
+                    <select class='form-control' v-model='params.orderby' @change='update'>
                         <option :value='undefined'>None</option>
                         <?php
                             array_map(
