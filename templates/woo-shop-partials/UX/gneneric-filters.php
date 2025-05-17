@@ -32,9 +32,9 @@ $orderBy = [
     <pockets-temp-state
         :state="query"
         #default="{ state:params, update, hasChanges }"
-        :key='query'
         @update:state='setQuery'
     >
+    
         <form 
             @submit.prevent='update'
         >
