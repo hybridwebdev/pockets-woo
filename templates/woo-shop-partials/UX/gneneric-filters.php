@@ -4,26 +4,13 @@
 * Template Type: woo-shop-template
 */
 $orderBy = [
-    [
-        'value' => 'id',
-        'title' => "ID"
-    ],
-    [
-        'value' => "price-asc",
-        'title' => "Price low to high"
-    ],
-    [
-        'value' => "price-desc",
-        'title' => "Price high to low"
-    ],
-    [
-        'value' => "title-desc",
-        'title' => "Title Z-A"
-    ],
-    [
-        'value' => "title-asc",
-        'title' => "Title A-Z"
-    ],
+  ['title' => 'Sort by popularity', 'value' => 'popularity'],
+  ['title' => 'Sort by average rating', 'value' => 'rating'],
+  ['title' => 'Sort by latest', 'value' => 'date'],
+  ['title' => 'Sort by price: low to high', 'value' => 'price'],
+  ['title' => 'Sort by price: high to low', 'value' => 'price-desc'],
+  ['title' => 'Sort by name: A to Z', 'value' => 'title'],
+  ['title' => 'Sort by name: Z to A', 'value' => 'title-desc'],
 ];
 
 ?>
@@ -43,7 +30,7 @@ $orderBy = [
                 <label class='grid-card-2'>
                     <span>Order</span>
                     <select class='form-control' v-model='params.orderby' @change='update'>
-                        <option :value='undefined'>None</option>
+                        <option :value='undefined'>Default Sorting</option>
                         <?php
                             array_map(
                                 array: $orderBy,
