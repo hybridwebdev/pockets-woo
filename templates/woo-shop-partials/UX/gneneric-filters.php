@@ -10,19 +10,19 @@ $orderBy = [
     ],
     [
         'value' => "price-asc",
-        'title' => "Price Asc"
+        'title' => "Price low to high"
     ],
     [
         'value' => "price-desc",
-        'title' => "Price Desc"
+        'title' => "Price high to low"
     ],
     [
         'value' => "title-desc",
-        'title' => "Title Desc"
+        'title' => "Title Z-A"
     ],
     [
         'value' => "title-asc",
-        'title' => "Title"
+        'title' => "Title A-Z"
     ],
 ];
 
@@ -34,7 +34,7 @@ $orderBy = [
         #default="{ state:params, update, hasChanges }"
         @update:state='setQuery'
     >
-    
+
         <form 
             @submit.prevent='update'
         >
