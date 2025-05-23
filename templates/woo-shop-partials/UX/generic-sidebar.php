@@ -10,5 +10,6 @@ echo \pockets_woo\templates\woo_shop_partials\UX\category_sidebar::init(
         'taxonomy' => 'product_cat',
         'parent' => 0,
         'hide_empty' => false
-    ]
+    ],
+    taxonomy: "product_cat"
 )->render(); 

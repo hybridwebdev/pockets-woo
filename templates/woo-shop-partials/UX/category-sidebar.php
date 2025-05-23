@@ -8,18 +8,19 @@ class category_sidebar {
     public function __construct( 
 
         public array $currentTermIds = [],
-        public array $parentQuery = []
+        public array $parentQuery = [],
+        public string $taxonomy
 
     ) {}
 
     private function isTermActive( int $termId ) : bool {
         
-        if ( in_array( $termId, $this->currentTermIds, true ) ) {
+        if ( in_array( $termId, $this->currentTermIds ) ) {
             return true;
         }
         
         foreach ( $this->currentTermIds as $currentTermId ) {
-            if ( in_array( $termId, get_ancestors( $currentTermId, 'product_cat', 'taxonomy' ) ) ) {
+            if ( in_array( $termId, get_ancestors( $currentTermId, $this->taxonomy, 'taxonomy' ) ) ) {
                 return true;
             }
         }
@@ -28,16 +29,19 @@ class category_sidebar {
 
     }
 
-    private function renderTerm( array $term, string $parentId = 'accordion' ) : string {
-        
-        static $count = 0;
+    private function renderTerm( array $term, int $parentId ) : string {
 
-        $count++;
-
-        $termId = "{$parentId}-{$count}";
         $termLink = esc_url( get_term_link( $term['ID'] ) );
 
-        $children = \pockets::crud('term')::init( $term['ID'] )->read( [
+        $isActive = $this->isTermActive( $term['ID'] );
+        $collapseClass = $isActive ? 'show' : '';
+        $buttonClass = $isActive ? '' : 'collapsed';
+
+        $targetID = uniqid($term['ID']);
+
+        $LinkClass = in_array( $term['ID'], $this->currentTermIds ) ? "active" : "";
+
+        $children = \pockets::crud( 'term' )::init( $term['ID'] )->read( [
             'terms:<=' => [
                 'items:<=' => [ 
                     'ID', 
@@ -46,61 +50,61 @@ class category_sidebar {
                 ]
             ]
         ] );
-
-        $isActive = $this->isTermActive( $term['ID'] );
-        $collapseClass = $isActive ? 'show' : '';
-        $buttonClass = $isActive ? '' : 'collapsed';
-
+        
         $childrenHTML = join( 
             array_map( 
                 array: $children,
-                callback: fn( $child ) => $this->renderTerm( $child, $termId ), 
+                callback: fn( $child ) => $this->renderTerm( $child, $term['ID'] ), 
             ) 
         );
 
-        $triggerHTML = !empty( $children ) ? sprintf(
+        $childrenHTML = count( $children ) == 0 ? "" : sprintf(
             <<<HTML
-                <button 
-                    style="width: auto" 
-                    class="accordion-button $buttonClass bg-transparent p-2 fw-8 fs-14" 
-                    type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#collapse-$termId" 
-                    aria-expanded="%s" 
-                    aria-controls="collapse-$termId"
-                ></button>
-            HTML,
-            $isActive ? 'true' : 'false',
-        ) : '';
-
-        return sprintf(
-            <<<HTML
-            <div class="accordion-item border-0">
-                <h2 class="accordion-header m-0" id="heading-$termId">
-                    <div class="d-flex align-items-center ps-2">
-                        <a href="$termLink" class="text-decoration-none flex-grow-1 text-grey-800 fw-7 lh-20 fs-14 pe-2 py-2">
-                            {$term['name']} ({$term['count']})
-                        </a>
-                        {$triggerHTML} 
-                    </div>
-                </h2>
                 <div 
-                    id="collapse-$termId" 
-                    class="accordion-collapse collapse $collapseClass" 
-                    aria-labelledby="heading-$termId" 
-                    data-bs-parent="#$parentId"
+                    id="collapse-{$targetID}" 
+                    class="accordion-collapse collapse {$collapseClass}" 
                 >
-                    <div class="accordion-body py-1 pe-0 ps-3">
+                    <div class="accordion-body p-0 px-1">
                         {$childrenHTML}
                     </div>
                 </div>
-            </div>
+            HTML
+        );
+
+        $triggerHTML = count( $children ) == 0 ? "" : sprintf(
+            <<<HTML
+                <span>
+                    <button 
+                        class="accordion-button bg-transparent {$buttonClass} p-1" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#collapse-{$targetID}" 
+                    ></button>
+                </span>
+            HTML 
+        );
+
+        return sprintf(
+            <<<HTML
+                <div
+                    class="accordion-item border-0" 
+                >
+                    <span class="d-flex align-items-center">
+                        <a 
+                            href="{$termLink}" 
+                            class="text-decoration-none flex-grow-1 fw-8 lh-20 fs-18 p-1 {$LinkClass}"
+                        >
+                            {$term['name']} (<span class='accordion-item-count fw-8'>{$term['count']}</span>)
+                        </a>
+                        {$triggerHTML} 
+                    </span>
+                    {$childrenHTML}
+                </div>
             HTML 
         );
 
     }
 
-    public function render(): string {
+    public function render() : string {
 
         $parents = \pockets::crud( 'terms' )::init( $this->parentQuery )->read( [
             'items:<=' => [ 
@@ -110,20 +114,19 @@ class category_sidebar {
             ]
         ] );
 
+        $childrenHTML = join( 
+            array_map( 
+                array: $parents,
+                callback: fn( $term ) => $this->renderTerm( $term, $term['ID'] ), 
+            ) 
+        );
+
         return sprintf(
             <<<HTML
-                <div class='product-archive-sidebar'>
-                    <div class='accordion'>
-                        %s
-                    </div>
+                <div class='category-accordion accordion p-1 bg-white'>
+                    {$childrenHTML}
                 </div>
-            HTML,
-            join( 
-                array_map( 
-                    array: $parents,
-                    callback: fn( $term ) => $this->renderTerm( $term, 'accordion-main' ), 
-                ) 
-            )
+            HTML
         );
 
     }
