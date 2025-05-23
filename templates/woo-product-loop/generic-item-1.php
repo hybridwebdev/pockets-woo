@@ -105,7 +105,7 @@ $addItem = json_encode( $data['addItem'] );
                         '
                     >
                         <i class='fa fa-shopping-cart'></i>
-                        Add to cart
+                        Add
                     </button>
                 </div>
 
