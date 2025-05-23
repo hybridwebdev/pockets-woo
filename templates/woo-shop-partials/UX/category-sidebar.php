@@ -39,7 +39,7 @@ class category_sidebar {
 
         $targetID = uniqid($term['ID']);
 
-        $LinkClass = in_array( $term['ID'], $this->currentTermIds ) ? "active" : "";
+        $LinkClass = in_array( $term['ID'], $this->currentTermIds ) ? "accordion-link-active" : "";
 
         $children = \pockets::crud( 'term' )::init( $term['ID'] )->read( [
             'terms:<=' => [
