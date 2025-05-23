@@ -4,12 +4,14 @@
 * Template Type: woo-shop-template
 */
 
+$data = \pockets\utils\array_dot_prop::init( $data );
+
 echo \pockets\templates\utils\category_accordion::init(
     currentTermIds: [ get_queried_object_id() ],
-    parentQuery: [
+    parentQuery: $data->get("query", [
         'taxonomy' => 'product_cat',
         'parent' => 0,
         'hide_empty' => false
-    ],
-    taxonomy: "product_cat"
+    ] ),
+    taxonomy: $data->get( "taxonomy", "product_cat" )
 )->render(); 
