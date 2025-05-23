@@ -4,7 +4,7 @@
 * Template Type: woo-shop-template
 */
 
-echo \pockets_woo\templates\woo_shop_partials\UX\category_sidebar::init(
+echo \pockets\templates\category_accordion::init(
     currentTermIds: [ get_queried_object_id() ],
     parentQuery: [
         'taxonomy' => 'product_cat',
