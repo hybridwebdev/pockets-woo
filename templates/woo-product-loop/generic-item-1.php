@@ -32,7 +32,7 @@ $renderPrice = fn() => sprintf(
 $addItem = json_encode( $data['addItem'] );
 
 ?>
-<div class='grid-card-4 bg-white gap-1 product p-4'>
+<div class='grid-card-4 bg-white gap-1 product p-2'>
 
     <div class='d-flex align-items-center justify-content-center'>
         <a href="<?= $data['link'] ?>">
