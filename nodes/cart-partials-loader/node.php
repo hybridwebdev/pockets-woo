@@ -44,7 +44,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
         
     }
     
-    function hydrate( $node ){
+    function sanitize( $node ){
         
         $html = 'No template selected';
 
@@ -60,9 +60,9 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
             $html = $html->get_error_message();
         };
 
-        $node['props']['innerHTML'] = $html;
+        $node->set( 'props.innerHTML', $html );
         
-        return $node;
+        return $node->all();
 
     }
 
