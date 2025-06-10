@@ -3,6 +3,8 @@ namespace pockets_woo\nodes\shop_partials_loader;
 
 class node extends \pockets_node_tree\nodes\template_loader\node {
 
+    use \pockets_woo\nodes\partials_loader;
+
     public $edit_fields = [
         [
             'ID'=> "woo-shop-partials-loader-settings",
@@ -44,16 +46,16 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
         
     }
     
-    function sanitize( $node ){
+    function innerHTML( $node ) : string {
         
         $queried_object = get_queried_object();
         
         $html = 'No template selected';
 
-        if( $node['data']['template'] ) {
+        if( $node->get('data.template' ) ) {
             
             $html = \pockets::crud( 'crud-resource' )::init( $queried_object )->read( [
-                'render' => $node['data']
+                'render' => $node->get( 'data' )
             ] )['render'];
             
         }
@@ -62,9 +64,7 @@ class node extends \pockets_node_tree\nodes\template_loader\node {
             $html = $html->get_error_message();
         };
 
-        $node->set( 'props.innerHTML', $html );
-        
-        return $node->all();
+        return $html;
 
     }
 
