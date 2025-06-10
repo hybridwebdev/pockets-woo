@@ -1,6 +1,9 @@
 <?php 
 namespace pockets_woo\nodes;
 
+/**
+    Abstract for creating template loader nodes for woo
+*/
 trait partials_loader {
 
     function sanitize( $node ){
