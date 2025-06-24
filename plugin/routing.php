@@ -58,7 +58,7 @@ class routing {
                 Forces page to refresh instead of loading headlessly 
             */
              
-            add_filter( '---pockets-node-tree/router/routes', fn( $routes ) => array_merge(
+            add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
                 $routes,
                 [
                     // [
