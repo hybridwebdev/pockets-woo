@@ -58,34 +58,16 @@ class routing {
                 Forces page to refresh instead of loading headlessly 
             */
              
-            add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => array_merge(
-                $routes,
-                [
-                    // [
-                    //     'path' => sprintf( "%s:catchAll(.*)", "/product")
-                    // ],
-                    // [
-                    //     'path' => sprintf( 
-                    //         "%s:catchAll(.*)", 
-                    //         untrailingslashit(
-                    //             wp_make_link_relative( 
-                    //                 wc_get_cart_url() 
-                    //             ) 
-                    //         )
-                    //     )
-                    // ],
-                    [
-                        'path' => sprintf( 
-                            "%s:catchAll(.*)", 
-                            untrailingslashit(
-                                wp_make_link_relative( 
-                                    wc_get_checkout_url() 
-                                ) 
-                            )
-                        )
-                    ],
-                ]
-            ) );
+            add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => $routes::add( [
+                'path' => sprintf( 
+                    "%s:catchAll(.*)", 
+                    untrailingslashit(
+                        wp_make_link_relative( 
+                            wc_get_checkout_url() 
+                        ) 
+                    )
+                )
+            ], true ) );
 
         // }
 
