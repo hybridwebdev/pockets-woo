@@ -60,7 +60,8 @@ class routing {
              
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => $routes::add( [
                 'meta' => [
-                    'refresh-page' => true
+                    'refresh-page' => true,
+                    'nodeTree' => true
                 ],
                 'path' => sprintf( 
                     "%s:catchAll(.*)", 
