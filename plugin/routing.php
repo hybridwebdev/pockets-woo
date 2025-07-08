@@ -59,6 +59,9 @@ class routing {
             */
              
             add_filter( 'pockets-node-tree/router/routes', fn( $routes ) => $routes::add( [
+                'meta' => [
+                    'refresh-page' => true
+                ],
                 'path' => sprintf( 
                     "%s:catchAll(.*)", 
                     untrailingslashit(
