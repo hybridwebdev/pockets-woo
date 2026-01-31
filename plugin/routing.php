@@ -41,6 +41,13 @@ class routing {
 
         add_filter( "pockets/vue/app.js/dependencies", function( array $dependencies ){
 
+            /**
+                Only load on front end 
+            */
+            if( is_admin() ) {
+                return $dependencies;
+            }
+
             return array_merge( $dependencies, [
                 'wc-add-to-cart-variation',
                 // 'wc-cart-fragments',
