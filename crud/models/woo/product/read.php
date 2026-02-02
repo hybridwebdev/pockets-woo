@@ -130,4 +130,31 @@ class read extends \pockets\crud\resource_walker {
         return \pockets::crud('woo/product')::init( $this->resource->get_parent_id() )->read( $read );
     }
 
+    
+    /**
+        You can provide an array of meta_keys, and this will return an array of results for the 
+        corresponding field.
+    */
+    #[ \pockets\crud\schema\attribute( __CLASS__.'::__get_meta_schema' ) ]
+    function meta( ?array $args ) : array | \WP_Error {
+        if( !is_array( $args ) ) return \pockets::error("Denied");
+        return \pockets\crud\reducers\whitelist_reducer::walk(
+            array: $args, 
+            callback: fn($_, $iterator) => get_post_meta($this->resource->ID, $iterator->key, true),
+            whitelist: array_keys( get_registered_meta_keys('post') )
+        );
+    }
+
+    /**
+        @class-document-advanced
+        This is used to dynamically generate schema for the meta function.
+    */    
+    static function __get_meta_schema(){
+        return \pockets\crud\schema\registered_meta_keys::build( 
+            meta_keys: get_registered_meta_keys('post'),
+            action: "read",
+            meta_object_type: "post",
+        );
+    }
+
 }
