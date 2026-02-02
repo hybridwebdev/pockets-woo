@@ -224,19 +224,7 @@ class update extends \pockets\crud\resource_walker {
         return "Updated";
 
     }
-
-    function meta( array $args ) : array | \WP_Error {
-        
-        if( !is_array( $args ) ) return \pockets::error("Denied");
-
-        return \pockets\crud\reducers\whitelist_reducer::walk(
-            array: $args, 
-            callback: fn( $value, $iterator ) => update_post_meta( $this->resource->get_id(), $iterator->key, $iterator->value ) ? "Updated" : "Updated",
-            whitelist: meta_key_whitelist::getKeys()
-        );
-
-    }
-
+ 
     function regular_price( float $price ){
         $this->resource->set_regular_price( $price );
     }
@@ -300,6 +288,33 @@ class update extends \pockets\crud\resource_walker {
 
         $this->resource->set_manage_stock( $manage );
 
+    }
+    
+    /**
+        Updates post meta
+        Uses a whitelisting approach for security. 
+        New keys can be added via register_meta();
+        @class-document-link https://developer.wordpress.org/reference/functions/register_meta/ 
+    */
+    #[ \pockets\crud\schema\attribute( __CLASS__.'::__get_meta_schema' ) ]
+    function meta( array $args ) : array | \WP_Error {
+        if( !is_array( $args ) ) return \pockets::error("Denied");
+        return \pockets\crud\reducers\whitelist_reducer::walk(
+            array: $args, 
+            callback: fn( $value, $iterator ) => update_post_meta( $this->resource->get_id(), $iterator->key, $iterator->value ) ? "Updated" : "Updated",
+            whitelist: array_keys( get_registered_meta_keys('post') )
+        );
+    }
+    /**
+        @class-document-advanced
+        This is used to dynamically generate schema for the meta function.
+    */    
+    static function __get_meta_schema(){
+        return \pockets\crud\schema\registered_meta_keys::build( 
+            meta_keys: get_registered_meta_keys('post'),
+            action: "update",
+            meta_object_type: "post",
+        );
     }
 
 }

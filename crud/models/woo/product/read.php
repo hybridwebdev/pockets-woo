@@ -1,6 +1,5 @@
 <?php
 namespace pockets_woo\crud\models\woo\product;
- 
 
 class read extends \pockets\crud\resource_walker {
     
@@ -139,7 +138,7 @@ class read extends \pockets\crud\resource_walker {
         if( !is_array( $args ) ) return \pockets::error("Denied");
         return \pockets\crud\reducers\whitelist_reducer::walk(
             array: $args, 
-            callback: fn($_, $iterator) => get_post_meta($this->resource->ID, $iterator->key, true),
+            callback: fn($_, $iterator) => get_post_meta($this->resource->get_id(), $iterator->key, true),
             whitelist: array_keys( get_registered_meta_keys('post') )
         );
     }
