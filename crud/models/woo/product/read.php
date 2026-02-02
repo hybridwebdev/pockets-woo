@@ -129,7 +129,6 @@ class read extends \pockets\crud\resource_walker {
     function variationParent( $read ) {
         return \pockets::crud('woo/product')::init( $this->resource->get_parent_id() )->read( $read );
     }
-
     
     /**
         You can provide an array of meta_keys, and this will return an array of results for the 
