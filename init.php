@@ -20,7 +20,11 @@ namespace pockets_woo {
       }
 
       function __construct(){
-         $this->dir = plugin_dir_path( __FILE__ );
+         
+         $this->pluginFile = __FILE__;
+			$this->dir = plugin_dir_path( $this->pluginFile );
+			$this->url = plugin_dir_url( $this->pluginFile );
+
       }
       
    }
