@@ -1,0 +1,32 @@
+name: Deploy Release
+
+on:
+  push:
+    tags:
+      - "*" # Triggers on any tag starting with 'v'
+
+permissions:
+  contents: write # Required for creating releases and uploading assets
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    env:
+      PREFIX_NAME: pockets-woo  # <-- set this to whatever you want the internal folder to be called
+      ZIP_NAME: pockets-woo.zip
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Package Source with Directory
+        run: |
+          git archive --format=zip --prefix=${PREFIX_NAME}/ HEAD -o ${ZIP_NAME}
+
+      - name: Create Release and Upload
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.ZIP_NAME }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
