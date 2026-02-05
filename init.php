@@ -3,7 +3,7 @@
 /*
  * Plugin Name: Pockets Woo
  * Description: Woo
- * Version:     1.0
+ * Version:     .99
  * Author:      Justin L
  * Author URI:  justin
  * License:     Private
