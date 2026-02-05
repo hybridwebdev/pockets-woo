@@ -20,14 +20,14 @@ $data = $this->read_resource( [
     'product_type' 
 ] );
  
-$renderPrice = fn() => sprintf(
-    <<<T
-    <span class='text-black fs-14 fw-5 lh-22'>%s</span>
-    T,
+$renderPrice = fn() => apply_filters( "woocommerce_get_price_html", sprintf(
+    <<<HTML
+        <span class='text-black fs-14 fw-5 lh-22'>%s</span>
+    HTML,
     ( $data['price']['max'] ?? false) 
         ? sprintf( "%s to %s", $data['price']['min'], $data['price']['max'] ) 
         : sprintf( "%s", $data['price']['min'] ?? "" ) 
-);
+), $this->resource );
 
 $addItem = json_encode( $data['addItem'] );
 

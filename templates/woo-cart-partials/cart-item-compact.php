@@ -6,6 +6,7 @@ $data = $this->read_resource( [
     'key',
     'quantity',
     'product:<=' => [
+        'ID',
         'link',
         'image' => [
             'url' => [
@@ -22,6 +23,8 @@ $data = $this->read_resource( [
     'subtotal',
 
 ] );
+
+$data['price'] = apply_filters( "woocommerce_get_price_html", $data['price'], wc_get_product($data['ID']));
 
 if( $data['product_type'] == 'variation') {
     

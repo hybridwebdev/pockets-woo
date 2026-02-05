@@ -11,14 +11,14 @@ $productData = $this->read_resource( [
     "price_range:price"
 ] );
 
-$renderPrice = fn() => sprintf(
+$renderPrice = fn() => apply_filters( "woocommerce_get_price_html", sprintf(
     <<<T
     %s
     T,
     ( $productData['price']['max'] ?? false ) 
         ? sprintf( "%s to %s", $productData['price']['min'], $productData['price']['max'] ) 
         : sprintf( "%s", $productData['price']['min'] ) 
-);
+), $this->resource );
 
 if( in_array( needle: $productData['product_type'], haystack: [ 'simple', 'external', 'grouped' ] ) ) {
     
