@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php do_action( 'woocommerce_before_checkout_billing_form', $checkout ); ?>
 
-	<div class="woocommerce-billing-fields__field-wrapper grid columns-1 gap-2 mt-2">
+	<div class="woocommerce-billing-fields-field-wrapper grid columns-1 gap-2 mt-2">
 		<?php
 		$fields = $checkout->get_checkout_fields( 'billing' );
 

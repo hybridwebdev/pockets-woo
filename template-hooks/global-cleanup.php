@@ -7,33 +7,36 @@ class global_cleanup {
 
     function __construct(){
 
-        add_action( 'wp_enqueue_scripts', function() {
+        add_filter( 'woocommerce_form_field', function( $field, $key, $args ) {
+            
+            if( !empty( $args['process-form-field'] ) ) {
+            
+                $field = str_replace( 
+                    search: [ 'input-text', ], 
+                    replace: '', 
+                    subject: $field 
+                );
 
-                wp_dequeue_script( 'selectWoo' );
-                wp_dequeue_script( 'select2' );
-                wp_dequeue_script( 'wc-selectWoo' );
-                wp_dequeue_style( 'select2' );
+                $field = sprintf( "<div style='order: %s'>%s</div>", (int)($args['priority'] ?? 0), $field );
 
-        }, 100 );
-        
-        add_filter( 'woocommerce_form_field', function( $field ) {
+            }
+            
+            return $field;
 
-            return str_replace( 
-                search: ['input-text', 'form-row-first', 'form-row-last', 'form-row', 'wc-enhanced-select'], 
-                replace: '', 
-                subject: $field 
-            );
-
-        }, 10 );
+        }, 10, 3 );
                 
         add_filter( 'woocommerce_form_field_args', function( $args, $key ) {
 
             $CB = match( $args['type'] ) {
                 default => false,
                 'state', 'country', 'tel', 'email', 'textarea', 'text' => function() use ( $args ) {
-                    $args['class'] = ['grid', 'columns-1', 'gap-1', 'm-0'];
+
+                    $args['class'] = [ 'grid', 'columns-1', 'gap-1', 'm-0' ];
                     $args['input_class'] = [ 'form-control' ];
+                    $args['process-form-field'] = true;
+                    
                     return $args;
+
                 }
             };
 
