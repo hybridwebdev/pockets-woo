@@ -28,7 +28,7 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
 
 	<?php endif; ?>
 
-	<h2 class="text-primary-dk fw-8 fs-24 mb-1"><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></h2>
+	<h2 class="text-accent-dk fw-8 fs-24 mb-2 "><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></h2>
 
 	<address class='grid columns-1 gap-1'>
 		<div class='grid-info-120'>

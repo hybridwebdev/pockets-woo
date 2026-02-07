@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * @since 2.6.0
  */
 ?>
-<div class='d-flex gap-2 flex-wrap flex-lg-nowrap my-account'>
+<div class='d-flex gap-2 gap-lg-6 flex-wrap flex-lg-nowrap my-account'>
 	<div class='bg-grey-700 p-0 col-12 col-lg-auto'>
 		<?php do_action( 'woocommerce_account_navigation' ); ?>
 	</div>

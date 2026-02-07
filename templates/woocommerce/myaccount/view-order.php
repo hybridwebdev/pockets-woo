@@ -23,7 +23,7 @@ $notes = $order->get_customer_order_notes();
 ?>
 <div class='grid columns-1 gap-2'>
 	<div>
-		<h2 class='fw-8 text-primary-dk fs-24 mb-1'>Order information</h2>
+		<h2 class='fw-8 text-accent-dk fs-24 mb-2'>Order information</h2>
 		<?php
 
 		printf(

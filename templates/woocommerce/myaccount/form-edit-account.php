@@ -26,11 +26,11 @@ do_action( 'woocommerce_before_edit_account_form' );
 ?>
 
 <div>
-	<form class="grid columns-1 gap-1 align-items-start" action="" method="post" <?php do_action( 'woocommerce_edit_account_form_tag' ); ?> >
+	<form class="grid columns-1 gap-2 align-items-start" action="" method="post" <?php do_action( 'woocommerce_edit_account_form_tag' ); ?> >
 
 		<?php do_action( 'woocommerce_edit_account_form_start' ); ?>
 
-		<legend class='text-primary-dk fw-8 m-0'><?php esc_html_e( 'Account Details', 'woocommerce' ); ?></legend>
+		<legend class='text-accent-dk fs-24 fw-8 m-0'><?php esc_html_e( 'Account Details', 'woocommerce' ); ?></legend>
 
 		<div class="grid columns-1 columns-lg-2 gap-2 align-items-start">
 			<p class='grid columns-1 gap-1'>
@@ -65,7 +65,7 @@ do_action( 'woocommerce_before_edit_account_form' );
 			do_action( 'woocommerce_edit_account_form_fields' );
 		?>
 
-		<legend class='text-primary-dk fw-8 m-0'><?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
+		<legend class='text-accent-dk fs-24 fw-8 m-0'><?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
 
 		<div class="grid columns-1 columns-lg-2 gap-2 align-items-start">
 			<p class="grid columns-1 gap-1">

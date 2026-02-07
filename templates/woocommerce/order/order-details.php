@@ -53,7 +53,7 @@ if ( $show_downloads ) {
 <section class="woocommerce-order-details m-0">
 	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
-	<h2 class="text-primary-dk fw-8 fs-24 mb-1"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
+	<h2 class="text-accent-dk fw-8 fs-24 mb-2"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
 
 	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 
