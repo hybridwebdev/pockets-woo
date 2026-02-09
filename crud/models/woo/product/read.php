@@ -8,10 +8,32 @@ class read extends \pockets\crud\resource_walker {
     function image( array $read ) : \Wp_Error | array {
         //"https://place-hold.it/80x80"
         $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
+    
         return \pockets::crud( 'image' )::init( $image_id )->read( $read );
 
     }
+    
+    function gallery( array $read ) : array {
+        
+        $ids = $this->resource->get_gallery_image_ids();
+
+        /**
+            Force no results if no gallery images attached to product 
+        */
+        if( empty($ids) ) {
+            $ids = [-1];
+        }
+
+        return \pockets::crud( 'images')::init( [
+            'post__in' => $ids,
+            'post_type' => 'attachment',
+            'posts_per_page' => -1,
+            'post_status' => 'inherit',
+            'post_mime_type' => "image"
+        ] )->read( $read );
  
+    }
+
     function ID(){
         return $this->resource->get_id();
     }

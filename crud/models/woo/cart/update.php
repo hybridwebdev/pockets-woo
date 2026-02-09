@@ -6,7 +6,7 @@ class update extends \pockets\crud\resource_walker {
     /**
         Adds item to cart.
     */
-    function addItem( $data ) : string | bool {
+    function addItem( $data ) : array {
         
         list(
             'quantity' => $quantity,
@@ -24,13 +24,25 @@ class update extends \pockets\crud\resource_walker {
             'cart_item_data' => []
         ], $data );
 
-        return $this->resource->add_to_cart( 
+        $added = $this->resource->add_to_cart( 
             $product_id, 
             $quantity, 
             $variation_id, 
             $variation, 
             $cart_item_data 
         );
+
+        $message = "Item Added to cart";
+
+        if( !$added ) {
+            $message = "Item could not be added to cart";
+        }
+        
+        return [
+            'added' => $added,
+            'message' => $message,
+            'status' => $added ? "success" : "error"
+        ];
 
     }
 
