@@ -41,7 +41,6 @@ class update extends \pockets\crud\resource_walker {
         return [
             'added' => $added,
             'message' => $message,
-            'status' => $added ? "success" : "error"
         ];
 
     }
