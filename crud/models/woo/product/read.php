@@ -117,12 +117,29 @@ class read extends \pockets\crud\resource_walker {
 
     }
 
-    function description(){
-        return apply_filters( 'woocommerce_description', $this->resource->get_description() );
+    function description( ?array $read = [ 'filter' => true ] ){
+        
+        $content = $this->resource->get_description() ;
+        
+        if( $read['filtered'] ?? true === true) {
+            $content = apply_filters( 'the_content', $content );
+            $content = apply_filters( 'woocommerce_description', $content );
+        }
+
+        return $content;
+
     }
 
-    function short_description(){
-        return apply_filters( 'woocommerce_short_description', $this->resource->get_short_description() );
+    function short_description(  ?array $read = [ 'filter' => true ] ){
+        
+        $content = $this->resource->get_short_description() ;
+        
+        if( $read['filtered'] ?? true === true) {
+            $content = apply_filters( 'the_content', $content );
+            $content = apply_filters( 'woocommerce_short_description', $content );
+        }
+
+        return $content;
     }
     
     function variationParent( $read ) {
