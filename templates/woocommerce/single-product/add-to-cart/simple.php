@@ -38,8 +38,6 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	method="post" 
 	v-pockets-woo-form-handler='{
 		action: "cart.add.simple",
-		error: "Item could not be added.",
-		success: "Item added to cart."
 	}'
 	:loading='$pockets.woo.cart.busy'
 >

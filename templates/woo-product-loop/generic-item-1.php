@@ -89,14 +89,7 @@ $addItem = json_encode( $data['addItem'] );
                         @click='
                             state.busy = true;
                             $pockets.woo.cart.addItem( { addItem: state.item } )
-                            .then( e => {
-                                if( e.addItem !== false ) {
-                                    $pockets.toast.success("Item added to cart");
-                                }
-                                if( e.addItem === false ) {
-                                    $pockets.toast.error("Item could not be added");
-                                }
-                            } )
+                            .then( ( { addItem } ) => $pockets.toast( addItem.message, { type: addItem.added ? "success" : "error" } ) )
                             .catch( e => e.toast() )
                             .finally( () => {
                                 state.busy = false
