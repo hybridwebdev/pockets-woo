@@ -67,7 +67,7 @@ if( is_wp_error( $data['image'] ) ) {
                 v-tooltip='"Remove item from cart"'
                 @click='e => {
                     $pockets.woo.cart.removeItem( "<?= $data['key'] ?>" )
-                    .then( e => $pockets.toast.success("Item removed") )
+                    .then( e => $pockets.toast( e.removeItem.message, { type: e.removeItem.removed ? "success" : "error" } ) )
                     .catch( e => e.toast() )
                 }'
             ></i>
@@ -87,7 +87,7 @@ if( is_wp_error( $data['image'] ) ) {
             value='<?= $data['quantity']?>' 
             @update:value='quantity => {
                 $pockets.woo.cart.updateQuantity( "<?= $data['key'] ?>", quantity )
-                .then( e => $pockets.toast.success("Quantity updated") )
+                .then( e => $pockets.toast( e.itemQuantity.message, { type: e.itemQuantity.updated ? "success" : "error" } ) )
                 .catch( err => err.toast() )
             }'
         >

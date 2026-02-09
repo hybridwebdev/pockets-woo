@@ -32,10 +32,10 @@ class update extends \pockets\crud\resource_walker {
             $cart_item_data 
         );
 
-        $message = "Item Added to cart";
+        $message = "Item Added!";
 
         if( !$added ) {
-            $message = "Item could not be added to cart";
+            $message = "Item could not be added!";
         }
         
         return [
@@ -45,11 +45,24 @@ class update extends \pockets\crud\resource_walker {
 
     }
 
-    function removeItem( string $hash ){
-        return $this->resource->remove_cart_item( $hash );
+    function removeItem( string $hash ) : array {
+        
+        $removed = $this->resource->remove_cart_item( $hash );
+
+        $message = "Item removed!";
+
+        if( !$removed ) {
+            $message = "Item could not be removed!";
+        }
+
+        return [
+            'removed' => $removed,
+            'message' => $message
+        ];
+
     }
 
-    function itemQuantity( array $data ){
+    function itemQuantity( array $data ) : array {
 
         list(
             'hash' => $hash,
@@ -60,7 +73,18 @@ class update extends \pockets\crud\resource_walker {
             $quantity = 1;
         }
         
-        return $this->resource->set_quantity( $hash, (int) $quantity );
+        $updated = $this->resource->set_quantity( $hash, (int) $quantity );
+
+        $message  = "Item quantity updated!";
+
+        if( !$updated ) {
+            $message = "Item quantity couldn't be updated!";
+        }
+
+        return [
+            'updated' => $updated,
+            'message' => $message
+        ];
 
     }
 
