@@ -8,7 +8,12 @@ class read extends \pockets\crud\resource_walker {
     function image( array $read ) : \Wp_Error | array {
         //"https://place-hold.it/80x80"
         $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
-    
+
+        if( $image_id == 0) {
+            $image_src = wc_placeholder_img_src();
+            $image_id = attachment_url_to_postid( $image_src );
+        }
+
         return \pockets::crud( 'image' )::init( $image_id )->read( $read );
 
     }
