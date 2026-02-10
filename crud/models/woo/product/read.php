@@ -6,13 +6,9 @@ class read extends \pockets\crud\resource_walker {
     use \pockets\crud\render;
 
     function image( array $read ) : \Wp_Error | array {
-        
-        $image_id = $this->resource->get_image_id();
-
-        if( !$image_id ) {
-            return \pockets::error("No attachment set");
-        }
-
+        //"https://place-hold.it/80x80"
+        $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
+    
         return \pockets::crud( 'image' )::init( $image_id )->read( $read );
 
     }
