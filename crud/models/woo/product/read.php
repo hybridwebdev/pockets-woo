@@ -11,7 +11,7 @@ class read extends \pockets\crud\resource_walker {
  
         $m = \pockets::crud( 'image' )::init( $image_id );
 
-        if( is_wp_error( $m->resource )) {
+        if( is_wp_error( $m->resource ) ) {
             
             if( $image_id == 0) {
                 $image_src = wc_placeholder_img_src();
@@ -21,7 +21,7 @@ class read extends \pockets\crud\resource_walker {
             $m = \pockets::crud( 'image' )::init( $image_id );
 
         }
-        
+
         return $m->read( $read );
 
     }
