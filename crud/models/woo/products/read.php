@@ -3,6 +3,7 @@ namespace pockets_woo\crud\models\woo\products;
 
 class read extends \pockets\crud\models\posts\read {
 
+    #[ \pockets\crud\schema\attribute( [ '$ref' => "/woo/product/read_resource/" ] ) ]
     function items( array $read ) : array {
         return array_map( 
             array: $this->resource->posts ?? [],

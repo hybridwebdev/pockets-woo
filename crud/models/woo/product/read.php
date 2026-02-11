@@ -5,27 +5,46 @@ class read extends \pockets\crud\resource_walker {
     
     use \pockets\crud\render;
 
+    #[ \pockets\crud\schema\attribute( [ 
+        '$merge' => [
+            'source' => [
+                '$ref' => '/image/read_resource/',
+            ],
+            'with' => [
+                'properties' => [
+                    'fallback' => [
+                        '$ref' => '/image/placeholder/get_resource/',
+                    ],
+                ],
+                'additional_properties' => false,
+            ],
+        ]
+    ] ) ]
     function image( array $read ) : \Wp_Error | array {
          
         $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
  
-        $m = \pockets::crud( 'image' )::init( $image_id );
+        $model = \pockets::crud( 'image' )::init( $image_id );
 
-        if( is_wp_error( $m->resource ) ) {
+        if( is_wp_error( $model->resource ) ) {
+
+            $fallBack = is_array( ( $read['fallback'] ?? false ) ) ? $read['fallback'] : [];
             
-            if( $image_id == 0) {
-                $image_src = wc_placeholder_img_src();
-                $image_id = attachment_url_to_postid( $image_src );
-            }
-            
-            $m = \pockets::crud( 'image' )::init( $image_id );
+            $init = array_merge( [
+                'url' => wc_placeholder_img_src( $fallBack['size'] ?? "thumbnail" )
+            ], $fallBack ) ;
+
+            $model = \pockets::crud( 'image/placeholder' )::init( $init );
 
         }
 
-        return $m->read( $read );
+        return $model->read( $read );
 
     }
-    
+
+    #[ \pockets\crud\schema\attribute( [ 
+        '$ref' => '/images/read_resource/',
+    ] ) ]
     function gallery( array $read ) : array {
         
         $ids = $this->resource->get_gallery_image_ids();
