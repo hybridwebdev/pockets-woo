@@ -6,25 +6,7 @@ class read extends \pockets\crud\resource_walker {
     use \pockets\crud\render;
 
     function image( array $read ) : \Wp_Error | array {
-
-        // // $image = fake_image::init();
-
-        // $data = \pockets::crud( 'image/placeholder' )::init( [
-        //     'url' => "aaaaaaa",
-        //     'post_content' => "aaaaaaaa"
-        // ] )->read( [
-        //     'url',
-        //     'dimensions',
-        //     'title',
-        //     'description'
-        // ]);
-
-        // \pockets::dump( [$data] );
-
-        // die();
-
-        // // $image->unhook();
-
+         
         $image_id = get_post_thumbnail_id( $this->resource->get_id() ) ?? false;
  
         $m = \pockets::crud( 'image' )::init( $image_id );
