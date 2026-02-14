@@ -43,27 +43,15 @@ class read extends \pockets\crud\resource_walker {
     }
 
     #[ \pockets\crud\schema\attribute( [ 
-        '$ref' => '/images/read_resource/',
+        '$ref' => '/image/read_resource/',
     ] ) ]
     function gallery( array $read ) : array {
         
-        $ids = $this->resource->get_gallery_image_ids();
+        return array_map(
+            array: $this->resource->get_gallery_image_ids(),
+            callback: fn( $ID ) => \pockets::crud( 'image')::init( $ID )->read( $read )
+        );
 
-        /**
-            Force no results if no gallery images attached to product 
-        */
-        if( empty($ids) ) {
-            $ids = [-1];
-        }
-
-        return \pockets::crud( 'images')::init( [
-            'post__in' => $ids,
-            'post_type' => 'attachment',
-            'posts_per_page' => -1,
-            'post_status' => 'inherit',
-            'post_mime_type' => "image"
-        ] )->read( $read );
- 
     }
 
     function ID(){
