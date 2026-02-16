@@ -228,5 +228,13 @@ class read extends \pockets\crud\resource_walker {
             meta_object_type: "post",
         );
     }
+    
+    /**
+        You can provide an array of meta_keys, and this will return an array of results for the corresponding field.
+    */
+    #[ \pockets\crud\schema\attribute('\pockets\crud\models\acf\adapter::getSchema') ]
+    function acf( ?array $args ) : array | \WP_Error {
+        return \pockets\crud\models\acf\adapter::getField( $args, $this->resource->get_id() );
+    }
 
 }
