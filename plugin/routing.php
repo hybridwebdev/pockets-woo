@@ -10,23 +10,6 @@ class routing {
         
         $this->apply_woo_routing();
     
-        add_filter( 'woocommerce_locate_template', function( $template, $template_name, $template_path ){
-
-            $path = sprintf( "%s/%s/%s", \pockets_woo\base::init()->dir, 'templates/woocommerce',  $template_name);
-
-            $debug = fn( $color ) => sprintf("<div class='p-4 %s'><p>%s</p><p>%s</p><p>%s</p> </div>", $color, $path, $template_path, $template_name);
-
-            if( file_exists($path) ){
-                //echo $debug('bg-black text-white');
-                return $path;
-            }
-
-            //echo $debug('bg-primary text-white');
-
-            return $template;
-            
-        }, 10, 3 );
-
     }
 
     function apply_woo_routing(){

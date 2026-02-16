@@ -31,7 +31,7 @@ class read extends \pockets\crud\resource_walker {
             $fallBack = is_array( ( $read['fallback'] ?? false ) ) ? $read['fallback'] : [];
             
             $init = array_merge( [
-                'url' => wc_placeholder_img_src( $fallBack['size'] ?? "thumbnail" )
+                'url' => wc_placeholder_img_src( $fallBack['size'] ?? "medium" )
             ], $fallBack ) ;
 
             $model = \pockets::crud( 'image/placeholder' )::init( $init );
