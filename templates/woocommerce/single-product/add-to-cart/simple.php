@@ -64,6 +64,9 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 					:min='%s'
 					:max='%s'					
 					:value='%d'
+					:input-attrs='{
+						class: "p-2"
+					}'
 				>
 				</pockets-fancy-input>
 			HTML,

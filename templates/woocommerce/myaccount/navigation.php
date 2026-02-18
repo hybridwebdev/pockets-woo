@@ -25,16 +25,16 @@ do_action( 'woocommerce_before_account_navigation' );
 <nav class="my-account-navigation col-12" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">
 	<ul class='list-unstyled p-0 m-0 grid columns-1 columns-sm-3 columns-lg-1 gap-0'>
 		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : 
-			$class = wc_is_current_account_menu_item( $endpoint ) ? "btn-grey-800" : "btn-grey-700";
+			$class = wc_is_current_account_menu_item( $endpoint ) ? "active" : "";
 			if ( $endpoint == 'dashboard' && ! WC()->query->get_current_endpoint() ) {
-				$class='btn-grey-800';
+				$class='active';
 			}
 		?>
 			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
 				<a 
 					href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" 
 					<?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>
-					class='btn p-1 col-12 text-center px-2 <?= $class ?>'
+					class='btn p-1 col-12 text-center px-6 btn-grey-700 <?= $class ?>'
 				>
 					<?php echo esc_html( $label ); ?>
 				</a>
