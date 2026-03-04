@@ -54,10 +54,10 @@ $orderBy = [
             <label class='grid-card-2'>
                 <span></span>
                 <button 
-                    class='btn btn-accent-dk p-1'
+                    class='btn btn-grey-800 p-1'
                     type='submit'
                 >
-                    SEARCH
+                    SEARCH <i class='fa fa-search ms-1'></i>
                 </button>
             </label>
         </div>

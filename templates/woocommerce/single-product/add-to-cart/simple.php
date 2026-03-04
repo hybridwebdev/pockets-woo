@@ -23,9 +23,10 @@ if ( !$product->is_purchasable() || !$product->is_in_stock() ) {
 	return printf(
 		<<<HTML
 			<div class='alert alert-danger'>
-				Currently out of stock or cannot be purchased.
+				%s
 			</div>
-		HTML
+		HTML,
+		apply_filters( 'woocommerce_get_availability_text', "Currently out of stock or cannot be purchased.", $product )
 	);
 }
 

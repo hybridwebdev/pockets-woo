@@ -14,6 +14,11 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     ]
 ] );
 
+$urls = [
+    'shop' => get_permalink( wc_get_page_id( 'shop' ) ),
+    'cart' => get_permalink( wc_get_page_id( 'cart' ) ),
+    'checkout' => get_permalink( wc_get_page_id( 'checkout' ) )
+];
 ?>
 
 <pockets-woo-cart
@@ -47,7 +52,7 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
             >
                 <div v-if='cart.results.items.length == 0' class='grid columns-1 gap-1 text-center'>
                     <p>There are no items in your cart.</p>
-                    <a href='/shop' class='btn btn-accent-dk px-4 p-1 mx-auto'>View Products</a>
+                    <a href='<?= $urls['shop'] ?>' class='btn btn-outline-confirm px-4 p-1 mx-auto'>View Products <i class='ms-1 fa fa-shopping-cart'></i></a>
                 </div>
                 <div class='grid columns-1 bg-grey-100 gap-1' v-if='cart.results.items.length > 0'>
                     <render-html v-for='item in cart.results.items' v-bind='item'>
@@ -63,11 +68,11 @@ $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
                     </div>
                 </div>
                 <div class='grid columns-2 gap-1 text-center'>
-                    <a href='/cart' class='justify-content-center btn btn-grey-700 text-white rounded-0 d-flex align-items-center gap-1'>
+                    <a href='<?= $urls['cart'] ?>' class='justify-content-center btn btn-grey-700 text-white rounded-0 d-flex align-items-center gap-1'>
                         <i class='fa fa-shopping-cart'></i>
                         Cart
                     </a>
-                    <a href='/checkout' class='justify-content-center btn btn-confirm text-white rounded-0 d-flex align-items-center gap-1'>
+                    <a href='<?= $urls['checkout'] ?>' class='justify-content-center btn btn-confirm text-white rounded-0 d-flex align-items-center gap-1'>
                         <i class="fa-solid fa-cash-register"></i>
                         Checkout
                     </a>
