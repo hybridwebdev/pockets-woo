@@ -21,8 +21,7 @@ $orderBy = [
             submit: setQuery
         }'
     >
-        <div class='grid columns-3 gap-1'>
-            
+        <div class='grid columns-1 columns-lg-2 gap-1'>
             <label class='grid-card-2'>
                 <span>Order</span>
                 <select 
@@ -49,16 +48,15 @@ $orderBy = [
 
             <label class='grid-card-2'>
                 <span>Search</span>
-                <input  class='form-control' name='s' :value='query.s'>
-            </label>
-            <label class='grid-card-2'>
-                <span></span>
-                <button 
-                    class='btn btn-grey-800 p-1'
-                    type='submit'
-                >
-                    SEARCH <i class='fa fa-search ms-1'></i>
-                </button>
+                <div class='d-flex'>
+                    <input  class='form-control' name='s' :value='query.s'>
+                    <button 
+                        class='btn btn-grey-800 p-1 px-2'
+                        type='submit'
+                    >
+                        <i class='fa fa-search'></i>
+                    </button>
+                </div>
             </label>
         </div>
     </form>
