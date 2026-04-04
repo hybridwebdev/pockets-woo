@@ -10,6 +10,7 @@ class module {
         single_product::init();
         checkout_form::init();
         global_cleanup::init();
+        validation::init();
         
         add_filter( 'woocommerce_redirect_single_search_result', fn() => false );
  

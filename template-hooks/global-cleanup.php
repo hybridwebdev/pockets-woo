@@ -6,7 +6,7 @@ class global_cleanup {
     use \pockets\traits\init;
 
     function __construct(){
-
+ 
         add_action( 'wp_enqueue_scripts', function() {
 
             wp_dequeue_script( 'selectWoo' );

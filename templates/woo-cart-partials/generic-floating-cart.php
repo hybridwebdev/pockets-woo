@@ -8,6 +8,7 @@
 $model = \pockets::crud( 'woo/cart' )::initCached()->read( [
     'subtotal',
     'items' => [
+        'quantity',
         'render:innerHTML' => [
             'template' => "woo-cart-partials/cart-item-compact"
         ]
@@ -55,7 +56,7 @@ $urls = [
                     <a href='<?= $urls['shop'] ?>' class='btn btn-outline-confirm px-4 p-1 mx-auto'>View Products <i class='ms-1 fa fa-shopping-cart'></i></a>
                 </div>
                 <div class='grid columns-1 bg-grey-100 gap-1' v-if='cart.results.items.length > 0'>
-                    <render-html v-for='item in cart.results.items' v-bind='item'>
+                    <render-html v-for='item in cart.results.items' v-bind='item' :key='item'>
                     </render-html>
                 </div>
             </div>
