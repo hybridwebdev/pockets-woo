@@ -11,7 +11,10 @@ class validation {
 
             if ($cart_item['data']->is_sold_individually() && $quantity > 1) {
 
-                wc_add_notice('Only 1 allowed per item.', 'error');
+                $product = $cart_item['data']; // WooCommerce product object
+                $product_name = $product->get_name(); // Get the product name
+            
+                wc_add_notice( sprintf('You cannot add another "%s" to your cart!', $product_name), 'error' );
 
                 return false;
                 
@@ -20,5 +23,6 @@ class validation {
             return $passed;
 
         }, 10, 4);
+
     }
 }

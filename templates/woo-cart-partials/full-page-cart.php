@@ -55,7 +55,7 @@ $urls = [
                     <div>Total</div>
                 </div>
 
-                <render-html v-for='item in cart.results.items' v-bind='item'></render-html>
+                <render-html v-for='item in cart.results.items' v-bind='item' :key='item'></render-html>
 
             </div>
 

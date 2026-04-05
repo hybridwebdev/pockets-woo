@@ -202,6 +202,25 @@ class read extends \pockets\crud\resource_walker {
     function variationParent( $read ) {
         return \pockets::crud('woo/product')::init( $this->resource->get_parent_id() )->read( $read );
     }
+
+    /**
+        Has user purchased this product? 
+    */
+    function hasPurchased( ?string $userID = '' ) : bool | \WP_Error {
+
+        if( $userID == '' ) {
+            $userID = get_current_user_id();
+        }
+
+        $model = \pockets::crud('wp-user')::init( $userID );
+
+        if( !$model->canRead() ) {
+            return \pockets::error('denied');
+        }
+
+        return wc_customer_bought_product( '', $userID, $this->resource->get_id() ) ;
+
+    }
     
     /**
         You can provide an array of meta_keys, and this will return an array of results for the 
