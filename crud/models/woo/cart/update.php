@@ -50,34 +50,34 @@ class update extends \pockets\crud\resource_walker {
         }
 
         $message = "Item Added!";
-
+ 
         if( !$added ) {
-            $message = $this->__get_error_messages();
+            $message = "Could not add item to cart";
         }
         
-        return [
-            'added' => $added,
+        return $this->__handle_messages([
+            'success' => $added,
             'message' => $message,
-        ];
+        ]);
 
     }
 
     function removeItem( string $hash ) : array {
 
         if( $hash == '' ) {
-            return [
-                'removed' => false,
+            return $this->__handle_messages([
+                'success' => false,
                 'message' => "must provide a hash",
-            ];
+            ]);
         }
 
         $cart_item = $this->resource->get_cart_item( $hash );
 
         if( !$cart_item ) {
-            return [
-                'removed' => false,
+            return $this->__handle_messages([
+                'success' => false,
                 'message' => "Could not find cart item.",
-            ];
+            ]);
         }
     
         /**
@@ -99,13 +99,13 @@ class update extends \pockets\crud\resource_walker {
         $message = "Item removed!";
 
         if( !$removed ) {
-            $message = $this->__get_error_messages();
+            $message = "Item could not be removed!";
         }
 
-        return [
-            'removed' => $removed,
+        return $this->__handle_messages([
+            'success' => $removed,
             'message' => $message
-        ];
+        ]);
 
     }
 
@@ -122,10 +122,10 @@ class update extends \pockets\crud\resource_walker {
         ) = $data;
 
         if( !$hash ) {
-            return [
-                'updated' => false,
+            return  $this->__handle_messages([
+                'success' => false,
                 'message' => "No hash"
-            ];
+            ]);
         }
 
         if( $quantity <= 0 ) {
@@ -135,10 +135,10 @@ class update extends \pockets\crud\resource_walker {
         $cart_item = $this->resource->get_cart_item($hash);
 
         if( !$cart_item ) {
-            return [
-                'updated' => false,
+            return  $this->__handle_messages([
+                'success' => false,
                 'message' => "Could not find cart item.",
-            ];
+            ]);
         }
 
         /**
@@ -160,30 +160,22 @@ class update extends \pockets\crud\resource_walker {
         $message  = "Item quantity updated!";
 
         if( !$updated ) {
-            $message = $this->__get_error_messages();
+            $message = "Item quantity could not be updated!";
         }
 
-        return [
-            'updated' => $updated,
+        return $this->__handle_messages([
+            'success' => $updated,
             'message' => $message
-        ];
+        ]);
+
+    }
+
+    function __handle_messages( array $args ) : array {
+
+        wc_add_notice( $args['message'], $args['success'] ? "success" : "error" ) ;
+
+        return $args;
 
     }
     
-    private function __get_error_messages() {
-       
-        $errors = wc_get_notices('error');
-
-        $message = array_map( array: $errors, callback: fn( $error ) => $error['notice'] );
-
-        $message = join( "", $message );
-
-        wc_set_notices([
-            'error' => []
-        ] + wc_get_notices());
-
-        return $message;
-    
-    }
-
 }

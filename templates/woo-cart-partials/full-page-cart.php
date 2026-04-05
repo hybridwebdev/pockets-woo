@@ -73,7 +73,7 @@ $urls = [
                 </div>
             </div>
             <div class='d-flex gap-1 text-center'>
-                <a href='/checkout' class='px-6 py-1 justify-content-center btn btn-confirm text-white d-flex align-items-center gap-1 col-12'>
+                <a href='<?= $urls['checkout'] ?>' class='px-6 py-1 justify-content-center btn btn-confirm text-white d-flex align-items-center gap-1 col-12'>
                     <i class="fa-solid fa-cash-register"></i>
                     Checkout
                 </a>

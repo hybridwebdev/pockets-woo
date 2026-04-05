@@ -32,4 +32,12 @@ class read extends \pockets\crud\resource_walker {
         return count($this->resource->cart_contents);
     }
     
+    function notices(){
+
+        $notices = wc_get_notices();
+        wc_clear_notices();
+        return $notices;
+        
+    }
+
 }
