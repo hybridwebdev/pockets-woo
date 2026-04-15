@@ -80,15 +80,15 @@ if( is_wp_error( $data['image'] ) ) {
                 </div>
             <?php } ?>
             
-            <div class="grid-info">
+            <div class="grid-info-80">
                 <span>Price</span>
                 <span><?= $data['price']?></span>
             </div>
-            <div class="grid-info">
+            <div class="grid-info-80">
                 <span>Subtotal</span>
                 <span><?= $data['subtotal']?></span>
             </div>
-            <div class='grid-info'>
+            <div class='grid-info-80'>
                 <span>Qty:</span>
                 <pockets-fancy-input
                     class='fs-10'
