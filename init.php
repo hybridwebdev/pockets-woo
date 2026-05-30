@@ -2,12 +2,13 @@
 
 /*
  * Plugin Name: Pockets Woo
- * Description: Woo
+ * Description: A Pockets extension that enhances woo functionality
  * Version:     .99
- * Author:      Justin L
- * Author URI:  justin
+ * Author:      Hybrid Web Dev
+ * Author URI:  hybridwebdev.com
  * License:     Private
  * Requires PHP: 8
+ * Requires at least: 6 
  */
 
 namespace pockets_woo {
