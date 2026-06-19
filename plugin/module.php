@@ -19,7 +19,13 @@ class module extends \pockets\base {
         \pockets_woo\crud\models\woo\module::init();
         \pockets_woo\nodes\module::init();
         \pockets_woo\template_hooks\module::init();
-        update\register_updater::init();
+        
+        if( \pockets::isFullVersion() ){
+
+            update\register_updater::init();
+        
+        }
+
         route_filters::init();
         routing::init();
 
