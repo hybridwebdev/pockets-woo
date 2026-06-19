@@ -37,7 +37,7 @@ namespace pockets_woo {
 
    add_action('plugins_loaded', function(){
 
-      if( !class_exists("\pockets" ) ) {
+      if( !class_exists("\pockets\base" ) ) {
 
          add_action( 'admin_notices', function(){
 
@@ -51,13 +51,13 @@ namespace pockets_woo {
 
       }
 
-      //if( class_exists("\pockets" ) ) {
+      if( class_exists("\pockets\base" ) ) {
       
          \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
 
          plugin\module::init();
 
-      //}
+      }
       
    }, 100 );
 
