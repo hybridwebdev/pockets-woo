@@ -36,8 +36,29 @@ namespace pockets_woo {
    ), 1 );
 
    add_action('plugins_loaded', function(){
-      \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
-      plugin\module::init();
+
+      if( !class_exists("pockets" ) ) {
+
+         add_action( 'admin_notices', function(){
+
+            echo <<<HTML
+                  <div class="notice notice-error is-dismissible">
+                        <p>Pockets Woo requires the Pockets plugin.</p>
+                  </div>
+            HTML;
+         
+         });
+
+      }
+
+      if( class_exists("pockets" ) ) {
+      
+         \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
+
+         plugin\module::init();
+
+      }
+      
    }, 100 );
 
 }

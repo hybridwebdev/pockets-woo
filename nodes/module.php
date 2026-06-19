@@ -7,9 +7,11 @@ class module {
 
     function __construct(){
         
-        product_partials_loader\node::init();
-        cart_partials_loader\node::init();
-        shop_partials_loader\node::init();
+        if( class_exists('pockets_node_tree') ) {
+            product_partials_loader\node::init();
+            cart_partials_loader\node::init();
+            shop_partials_loader\node::init();
+        }
         
     }
 
