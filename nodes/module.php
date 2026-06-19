@@ -7,7 +7,7 @@ class module {
 
     function __construct(){
         
-        if( class_exists('pockets_node_tree') ) {
+        if( class_exists('\pockets_node_tree') ) {
             product_partials_loader\node::init();
             cart_partials_loader\node::init();
             shop_partials_loader\node::init();
