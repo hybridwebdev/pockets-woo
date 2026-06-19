@@ -57,7 +57,7 @@ namespace pockets_woo {
 
          plugin\module::init();
 
-      } 
+      }
       
    }, 100 );
 
