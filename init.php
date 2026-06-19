@@ -51,13 +51,13 @@ namespace pockets_woo {
 
       }
 
-      if( class_exists("\pockets" ) ) {
+      //if( class_exists("\pockets" ) ) {
       
          \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
 
          plugin\module::init();
 
-      }
+      //}
       
    }, 100 );
 
