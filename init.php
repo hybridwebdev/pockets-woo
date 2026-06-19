@@ -37,7 +37,7 @@ namespace pockets_woo {
 
    add_action('plugins_loaded', function(){
 
-      if( !class_exists("pockets" ) ) {
+      if( !class_exists("\pockets" ) ) {
 
          add_action( 'admin_notices', function(){
 
@@ -51,7 +51,7 @@ namespace pockets_woo {
 
       }
 
-      if( class_exists("pockets" ) ) {
+      if( class_exists("\pockets" ) ) {
       
          \pockets\autoloader::register( plugin_dir_path( __FILE__ ), __NAMESPACE__ );
 
