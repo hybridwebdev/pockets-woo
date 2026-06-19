@@ -57,6 +57,8 @@ namespace pockets_woo {
 
          plugin\module::init();
 
+      } else {
+         die('nope');
       }
       
    }, 100 );
