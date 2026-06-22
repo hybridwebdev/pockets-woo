@@ -27,7 +27,7 @@ printf(
                 @click='cart.api.toggle( cart.ID )' 
                 class='fa fa-shopping-cart fs-20 d-flex gap-1 align-items-center'
                 role='button'
-                v-tooltip='{ content: "View cart", position: "bottom" }'
+                v-tooltip='{ content: "View cart", placement: "bottom" }'
             >
                 <span class='fs-14'>{{ cart.results.item_count}}</span>
             </i>
